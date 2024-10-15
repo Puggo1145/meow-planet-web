@@ -5,7 +5,7 @@ import type { ComponentProps } from "react"
 
 export const MainContainer = ({ children, className }: ComponentProps<'div'>) => {
     return (
-        <div className={cn("flex-1 h-full", className)}>
+        <div className={cn("flex-1 h-full border border-primary", className)}>
             {children}
         </div>
     )
@@ -13,7 +13,7 @@ export const MainContainer = ({ children, className }: ComponentProps<'div'>) =>
 
 export const RightContainer = ({ children, className }: ComponentProps<'div'>) => {
   return (
-    <div className={cn("w-[400px] bg-gray-300", className)}>
+    <div className={cn("w-[400px]", className)}>
         {children}
     </div>
   )
@@ -21,7 +21,7 @@ export const RightContainer = ({ children, className }: ComponentProps<'div'>) =
 
 export const LeftContainer = ({ children, className, }: ComponentProps<'div'>) => {
   return (
-    <div className={cn("w-[300px] bg-gray-200", className)}>
+    <div className={cn("w-[300px]", className)}>
         {children}
     </div>
   )
