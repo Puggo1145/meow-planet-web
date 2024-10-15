@@ -5,7 +5,7 @@ import icons from "@/constants/icons"
 
 const AuthHeader: React.FC = () => {
     return (
-        <header className="relative lg:max-w-[400px] w-full h-full bg-primary p-6">
+        <header className="relative hidden lg:block lg:w-[400px] h-full bg-primary p-6">
             <Image 
                 src={icons.logoWhite}
                 alt="logo"
