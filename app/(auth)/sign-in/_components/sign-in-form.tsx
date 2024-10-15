@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 // ui
-import LabelInput from "@/components/ui/label-input"
+import LabelInput from "@/components/label-input"
 import { Button } from "@/components/ui/button"
 // import { Form } from "@/components/ui/form"
 

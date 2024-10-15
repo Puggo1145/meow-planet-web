@@ -1,5 +1,5 @@
 // components
-import { Input } from "./input"
+import { Input } from "./ui/input"
 // types
 import type { ComponentProps } from "react"
 
