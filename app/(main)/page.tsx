@@ -13,7 +13,7 @@ import Feeds from "./_components/feeds"
 const MainPage = () => {
   return (
     <div className="flex w-full h-full">
-      <LeftContainer className="p-6">
+      <LeftContainer>
         <Avatar />
         <Navs />
       </LeftContainer>
