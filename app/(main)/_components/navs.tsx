@@ -25,8 +25,8 @@ interface Nav {
 const navs: Nav[] = [
   {
     icon: CompassIcon,
-    text: "Feeds",
-    href: "/feeds"
+    text: "Today",
+    href: "/today"
   },
   {
     icon: MessageCircleMoreIcon,

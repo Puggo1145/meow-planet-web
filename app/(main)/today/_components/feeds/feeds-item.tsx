@@ -4,6 +4,10 @@ import {
     AvatarImage,
     AvatarFallback,
 } from "@/components/ui/avatar";
+import {
+    ScrollArea,
+    ScrollBar,
+} from "@/components/ui/scroll-area";
 // components
 import FeedsImage from "./feeds-image";
 import FeedsItemFns from "./feeds-item-fns";
@@ -61,21 +65,21 @@ const FeedsItem = ({
                 <p className="max-w-3/4 leading-relaxed">
                     {content}
                 </p>
-                {/* MOCK IMAGES */}
                 {
                     images.length > 0 &&
-                    <div className="flex items-center gap-x-2">
-                        {
-                            images.map((image, index) => (
+                    <ScrollArea className="w-full overflow-hidden">
+                        <div className="flex items-center gap-x-2">
+                            {images.map((image, index) => (
                                 <FeedsImage
                                     key={index}
                                     src={image}
                                     alt="feeds image"
                                     className="h-[280px]"
                                 />
-                            ))
-                        }
-                    </div>
+                            ))}
+                        </div>
+                        <ScrollBar className="opacity-75" orientation="horizontal" />
+                    </ScrollArea>
                 }
             </section>
 

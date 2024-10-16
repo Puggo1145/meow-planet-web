@@ -1,6 +1,6 @@
 import images from "@/constants/images";
 // types
-import { IFeedsItemProps } from "@/app/(main)/feeds/_components/feeds-item";
+import { IFeedsItemProps } from "@/app/(main)/today/_components/feeds/feeds-item";
 
 
 export const mockFeedsImages = [

@@ -1,6 +1,9 @@
 // components
 import FeedsItem from "./feeds-item"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { 
+    ScrollArea,
+    ScrollBar 
+} from "@/components/ui/scroll-area"
 // mock
 import { mockFeeds } from "@/mock/feeds-mock"
 
@@ -15,6 +18,7 @@ const FeedsList = () => {
                     />
                 ))}
             </ul>
+            <ScrollBar className="opacity-75" />
         </ScrollArea>
     )
 }
