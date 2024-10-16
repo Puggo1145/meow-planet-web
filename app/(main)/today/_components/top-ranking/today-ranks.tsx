@@ -5,7 +5,7 @@ import { todayRanksMock } from "@/mock/cat-rank-mock"
 
 const TodayRanks = () => {
     return (
-        <section className="flex flex-col gap-y-3">
+        <section className="flex flex-col gap-y-2">
             <header className="py-6">
                 <h1 className="text-2xl font-black">Ranks</h1>
             </header>

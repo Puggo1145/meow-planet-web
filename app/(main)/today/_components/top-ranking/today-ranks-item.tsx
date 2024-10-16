@@ -32,7 +32,7 @@ const TodayRanksItem = ({
     hotValue
 }: ITodayRanksItemProps) => {
     return (
-        <li className="flex items-center justify-between cursor-pointer p-4 rounded-xl hover:bg-secondary">
+        <li className="flex items-center justify-between cursor-pointer px-4 py-3 rounded-xl hover:bg-secondary">
             <div className="flex-1 flex items-center gap-x-4">
                 <span className={cn("font-bold text-slate-700", rank <= 3 && rankColors[rank - 1])}>
                     {rank}

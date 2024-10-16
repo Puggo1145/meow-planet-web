@@ -3,8 +3,10 @@
 // icons
 import {
   CompassIcon,
-  MessageCircleMoreIcon,
+  CatIcon,
   ListOrderedIcon,
+  HeartHandshakeIcon,
+  BellIcon,
   SettingsIcon,
 } from "lucide-react"
 // hooks
@@ -29,14 +31,24 @@ const navs: Nav[] = [
     href: "/today"
   },
   {
-    icon: MessageCircleMoreIcon,
-    text: "Messages",
-    href: "/messages"
+    icon: CatIcon,
+    text: "Cats",
+    href: "/cats"
+  },
+  {
+    icon: HeartHandshakeIcon,
+    text: "Help Cats",
+    href: "/help-cats"
   },
   {
     icon: ListOrderedIcon,
     text: "Ranking",
     href: "/ranking"
+  },
+  {
+    icon: BellIcon,
+    text: "Notification",
+    href: "/notification"
   },
   {
     icon: SettingsIcon,
