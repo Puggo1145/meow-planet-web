@@ -51,11 +51,9 @@ const Navs: React.FC = () => {
   return (
     <ul className="flex flex-col gap-y-4 mt-6">
       {navs.map((nav, index) => (
-        <Link
-          key={index}
-          href={nav.href}
-        >
-          <li
+        <li key={index}>
+          <Link
+            href={nav.href}
             className={cn(
               "flex items-center gap-x-3 p-4 cursor-pointer hover:bg-secondary rounded-2xl",
               pathname === nav.href && "bg-primary text-primary-foreground hover:bg-primary"
@@ -63,8 +61,8 @@ const Navs: React.FC = () => {
           >
             <nav.icon size={24} />
             <p className="text-sm font-bold">{nav.text}</p>
-          </li>
-        </Link>
+          </Link>
+        </li>
       ))}
     </ul>
   )
