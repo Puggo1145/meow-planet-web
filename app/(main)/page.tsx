@@ -5,10 +5,11 @@ import {
   RightContainer 
 } from "@/components/containers/main-page-containers"
 // components
-import Avatar from "./_components/avatar"
-import Navs from "./_components/navs"
-import Feeds from "./_components/feeds"
-
+import Avatar from "./_components/left-col/avatar"
+import Navs from "./_components/left-col/navs"
+import FeedsHeader from "./_components/feeds/feeds-header"
+import FeedsReply from "./_components/feeds/feeds-reply"
+import FeedsList from "./_components/feeds/feeds-list"
 
 const MainPage = () => {
   return (
@@ -18,7 +19,9 @@ const MainPage = () => {
         <Navs />
       </LeftContainer>
       <MainContainer>
-        <Feeds />
+        <FeedsHeader />
+        <FeedsList />
+        <FeedsReply />
       </MainContainer>
       <RightContainer>
 
