@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "commit": "git-cz"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -16,6 +17,7 @@
     "@radix-ui/react-slot": "^1.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "git-cz": "^4.9.0",
     "lucide-react": "^0.453.0",
     "mobx": "^6.13.3",
     "mobx-react": "^9.1.1",
