@@ -13,7 +13,7 @@ export const MainContainer = ({ children, className }: ComponentProps<'div'>) =>
 
 export const RightContainer = ({ children, className }: ComponentProps<'div'>) => {
   return (
-    <div className={cn("w-[400px]", className)}>
+    <div className={cn("w-[400px] p-6", className)}>
         {children}
     </div>
   )

@@ -68,7 +68,7 @@ const FeedsItem = ({
                 {
                     images.length > 0 &&
                     <ScrollArea className="w-full overflow-hidden">
-                        <div className="flex items-center gap-x-2">
+                        <div className="flex items-center gap-x-2 mb-3">
                             {images.map((image, index) => (
                                 <FeedsImage
                                     key={index}
@@ -78,7 +78,7 @@ const FeedsItem = ({
                                 />
                             ))}
                         </div>
-                        <ScrollBar className="opacity-75" orientation="horizontal" />
+                        <ScrollBar orientation="horizontal" />
                     </ScrollArea>
                 }
             </section>
