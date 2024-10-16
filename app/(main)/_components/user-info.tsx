@@ -2,7 +2,7 @@
 // icons
 import { UserRoundIcon, ChevronsUpDownIcon } from "lucide-react"
 
-const Avatar = () => {
+const UserInfo = () => {
   return (
     <div className="flex items-center justify-between p-4 py-6 cursor-pointer hover:bg-secondary rounded-2xl">
       {/* <Image src={""} alt="user" /> */}
@@ -12,7 +12,7 @@ const Avatar = () => {
         </div>
         <div className="flex flex-col">
           <p className="text-sm font-bold leading-none">username</p>
-          <p className="text-xs text-muted-foreground leading-none">example@email.com</p>
+          <p className="text-xs text-muted-foreground leading-none">mock role</p>
         </div>
       </div>
       <ChevronsUpDownIcon
@@ -23,4 +23,4 @@ const Avatar = () => {
   )
 }
 
-export default Avatar
+export default UserInfo

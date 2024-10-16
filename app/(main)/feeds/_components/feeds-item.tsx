@@ -27,7 +27,7 @@ const FeedsItem = () => {
             </section>
 
             <section className="flex flex-col gap-y-4">
-                <p className="max-w-3/4 leading-snug">
+                <p className="max-w-3/4 leading-relaxed">
                     This piece of texts is used as a mock. This piece of texts is used as a mock.This piece of texts is used as a mock.
                 </p>
                 {/* MOCK IMAGES */}
