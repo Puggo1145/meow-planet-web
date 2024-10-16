@@ -31,7 +31,18 @@ const FeedsItemFn = ({ children, count }: IFeedsItemFn) => {
     )
 }
 
-const FeedsItemFns = () => {
+
+interface IFeedsItemFnsProps {
+    views: number;
+    likes: number;
+    comments: number;
+}
+
+const FeedsItemFns = ({
+    views,
+    likes,
+    comments
+}: IFeedsItemFnsProps) => {
     const iconStyle = {
         size: 24,
         className: "text-muted-foreground",
@@ -40,13 +51,13 @@ const FeedsItemFns = () => {
     return (
         <div className="flex items-center justify-between">
             <section>
-                <FeedsItemFn count={6553}>
+                <FeedsItemFn count={views}>
                     <EyeIcon {...iconStyle} />
                 </FeedsItemFn>
-                <FeedsItemFn count={10}>
+                <FeedsItemFn count={likes}>
                     <HeartIcon {...iconStyle} />
                 </FeedsItemFn>
-                <FeedsItemFn count={30}>
+                <FeedsItemFn count={comments}>
                     <MessageSquareTextIcon {...iconStyle} />
                 </FeedsItemFn>
             </section>

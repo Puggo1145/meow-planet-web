@@ -21,7 +21,7 @@ export const RightContainer = ({ children, className }: ComponentProps<'div'>) =
 
 export const LeftContainer = ({ children, className, }: ComponentProps<'div'>) => {
   return (
-    <div className={cn("w-[300px] p-6", className)}>
+    <div className={cn("w-[300px] p-6 flex flex-col", className)}>
         {children}
     </div>
   )

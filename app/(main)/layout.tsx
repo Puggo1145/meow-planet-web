@@ -1,4 +1,5 @@
 import { LeftContainer } from "@/components/containers/main-page-containers"
+import Logo from "@/components/logo"
 import UserInfo from "./_components/user-info"
 import Navs from "./_components/navs"
 // types
@@ -9,7 +10,10 @@ const MainLayout = ({ children }: ComponentProps<'div'>) => {
     <div className="max-w-[1440px] w-full h-screen mx-auto flex">
       <LeftContainer>
         <UserInfo />
-        <Navs />
+        <section className="flex-1 flex flex-col justify-between">
+          <Navs />
+          <Logo withName />
+        </section>
       </LeftContainer>
       {children}
     </div>
