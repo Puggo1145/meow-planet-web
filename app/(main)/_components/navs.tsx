@@ -37,8 +37,8 @@ const navs: Nav[] = [
   },
   {
     icon: HeartHandshakeIcon,
-    text: "Help Cats",
-    href: "/help-cats"
+    text: "领养",
+    href: "/adoption"
   },
   {
     icon: ListOrderedIcon,

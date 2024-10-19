@@ -25,4 +25,4 @@ const FeedsList = () => {
     )
 }
 
-export default FeedsList
+export default FeedsList;

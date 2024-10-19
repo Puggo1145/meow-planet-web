@@ -9,7 +9,8 @@ import {
 import FeedsHeader from "./_components/feeds/feeds-header"
 import FeedsList from "./_components/feeds/feeds-list"
 import FeedsReply from "./_components/feeds/feeds-reply"
-import TodayRanks from "./_components/today-ranking/today-ranks"
+import TodayRanks from "./_components/today-ranks"
+import NewCats from "./_components/new-cats"
 
 const FeedsPage = () => {
   return (
@@ -21,6 +22,7 @@ const FeedsPage = () => {
       </MainContainer>
       <RightContainer>
         <TodayRanks />
+        <NewCats />
       </RightContainer>
     </>
   )

@@ -25,7 +25,7 @@ const rankColors = [
 ]
 
 
-const TodayRanksItem = ({
+export const TodayRanksItem = ({
     catImage,
     catName,
     rank,
@@ -61,5 +61,3 @@ const TodayRanksItem = ({
         </li>
     )
 }
-
-export default TodayRanksItem;
