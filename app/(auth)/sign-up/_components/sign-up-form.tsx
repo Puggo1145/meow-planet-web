@@ -11,27 +11,27 @@ const SignUpForm = () => {
         // TODO: replace original form with Form component
         <form className="w-full flex flex-col gap-y-4">
             <LabelInput
-                label="username (public)"
+                label="用户名 (公开显示)"
                 type="text"
-                placeholder="how would you like to be called?"
+                placeholder="为自己取一个喜欢的名字吧！"
             />
             <LabelInput
-                label="Email"
+                label="邮箱"
                 type="text"
                 placeholder="example@email.com"
             />
             <LabelInput
-                label="Password"
+                label="密码"
                 type="password"
-                placeholder="set a password"
+                placeholder="密码不少于 8 位且包含大小写字母"
             />
             <LabelInput
-                label="Verify password"
+                label="确认密码"
                 type="password"
-                placeholder="8+ characters"
+                placeholder="请再次输入密码"
             />
             <Button className="mt-4">
-                Sign up
+                注册
             </Button>
         </form>
     )

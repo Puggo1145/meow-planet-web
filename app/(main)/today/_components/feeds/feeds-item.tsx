@@ -1,25 +1,29 @@
 // ui
 import {
-    Avatar,
-    AvatarImage,
-    AvatarFallback,
-} from "@/components/ui/avatar";
-import {
     ScrollArea,
     ScrollBar,
 } from "@/components/ui/scroll-area";
 // components
-import FeedsImage from "./feeds-image";
-import FeedsItemFns from "./feeds-item-fns";
+import { 
+    FeedsItemHeader,
+    FeedsItemContent,
+    FeedsItemContentTexts,
+    FeedsItemContentImage,
+    FeedsItemFns,
+} from "./feeds-item-ui";
+// utils
+import { cn } from "@/lib/utils";
 // mock
 import type { StaticImageData } from "next/image";
+// types
+import { ComponentProps } from "react";
 
 
-export interface IFeedsItemProps {
+export interface IFeedsItemProps extends Omit<ComponentProps<'li'>, 'id'> {
     id: number;
     avatar: string;
     username: string;
-    time: string;
+    postTime: string;
     content: string;
     images: StaticImageData[];
     views: number;
@@ -30,47 +34,32 @@ export interface IFeedsItemProps {
 const FeedsItem = ({
     avatar,
     username,
-    time,
+    postTime,
     content,
     images,
     views,
     likes,
-    comments
+    comments,
+    className,
 }: IFeedsItemProps) => {
     return (
-        <li className="w-full p-6 rounded-2xl bg-secondary flex flex-col gap-y-4">
-            <section className="flex items-center gap-x-4">
-                <Avatar>
-                    <AvatarImage
-                        src={avatar}
-                        alt="avatar"
-                        width={40}
-                        height={40}
-                    />
-                    <AvatarFallback className="bg-white">
-                        {username.slice(0, 1).toUpperCase()}
-                    </AvatarFallback>
-                </Avatar>
-                <div className="flex flex-col">
-                    <h6 className="text-sm font-bold leading-none">
-                        {username}
-                    </h6>
-                    <p className="text-sm text-muted-foreground leading-none">
-                        {time}
-                    </p>
-                </div>
-            </section>
+        <li className={cn("w-full p-6 rounded-2xl bg-secondary flex flex-col gap-y-4", className)} >
+            <FeedsItemHeader
+                avatar={avatar}
+                username={username}
+                postTime={postTime}
+            />
 
-            <section className="flex flex-col gap-y-4">
-                <p className="max-w-3/4 leading-relaxed">
+            <FeedsItemContent>
+                <FeedsItemContentTexts>
                     {content}
-                </p>
+                </FeedsItemContentTexts>
                 {
                     images.length > 0 &&
                     <ScrollArea className="w-full overflow-hidden">
                         <div className="flex items-center gap-x-2 mb-3">
                             {images.map((image, index) => (
-                                <FeedsImage
+                                <FeedsItemContentImage
                                     key={index}
                                     src={image}
                                     alt="feeds image"
@@ -81,7 +70,7 @@ const FeedsItem = ({
                         <ScrollBar orientation="horizontal" />
                     </ScrollArea>
                 }
-            </section>
+            </FeedsItemContent>
 
             <FeedsItemFns
                 views={views}

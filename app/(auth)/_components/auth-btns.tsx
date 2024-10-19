@@ -8,17 +8,17 @@ import icons from "@/constants/icons"
 const AuthBtns = () => {
     const authButtons = [
         {
-            icon: icons.Google,
-            text: 'Continue with Google',
-        },
-        {
             icon: icons.QQ,
-            text: 'Continue with QQ',
+            text: '使用 QQ 登录',
         },
         {
             icon: icons.Wechat,
-            text: 'Continue with Wechat',
-        }
+            text: '使用微信登录',
+        },
+        {
+            icon: icons.Google,
+            text: '使用谷歌账号登录',
+        },
     ]
     
     return (

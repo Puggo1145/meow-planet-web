@@ -3,7 +3,6 @@ import {
     HeartIcon,
     EyeIcon,
     MessageSquareTextIcon,
-    Share2Icon
 } from "lucide-react"
 // ui
 import { Button } from "@/components/ui/button"
@@ -38,7 +37,7 @@ interface IFeedsItemFnsProps {
     comments: number;
 }
 
-const FeedsItemFns = ({
+export const FeedsItemFns = ({
     views,
     likes,
     comments
@@ -50,25 +49,15 @@ const FeedsItemFns = ({
 
     return (
         <div className="flex items-center justify-between">
-            <section>
-                <FeedsItemFn count={views}>
-                    <EyeIcon {...iconStyle} />
-                </FeedsItemFn>
-                <FeedsItemFn count={likes}>
-                    <HeartIcon {...iconStyle} />
-                </FeedsItemFn>
-                <FeedsItemFn count={comments}>
-                    <MessageSquareTextIcon {...iconStyle} />
-                </FeedsItemFn>
-            </section>
-            <section>
-                <FeedsItemFn>
-                    <Share2Icon {...iconStyle} />
-                </FeedsItemFn>
-            </section>
+            <FeedsItemFn count={views}>
+                <EyeIcon {...iconStyle} />
+            </FeedsItemFn>
+            <FeedsItemFn count={likes}>
+                <HeartIcon {...iconStyle} />
+            </FeedsItemFn>
+            <FeedsItemFn count={comments}>
+                <MessageSquareTextIcon {...iconStyle} />
+            </FeedsItemFn>
         </div>
     )
 }
-
-export default FeedsItemFns
-

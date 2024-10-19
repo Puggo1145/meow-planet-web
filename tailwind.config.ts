@@ -1,4 +1,4 @@
-import { fontFamily } from "tailwindcss/defaultTheme"
+// import { fontFamily } from "tailwindcss/defaultTheme"
 import twAnimate from "tailwindcss-animate"
 
 /** @type {import('tailwindcss').Config} */
@@ -62,7 +62,7 @@ module.exports = {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		fontFamily: {
-  			sans: ["var(--font-sans)", ...fontFamily.sans]
+  			// sans: ["var(--font-sans)", ...fontFamily.sans]
   		},
   		keyframes: {
   			'accordion-down': {
@@ -88,5 +88,5 @@ module.exports = {
   		}
   	}
   },
-  plugins: [twAnimate, require("tailwindcss-animate")],
+  plugins: [twAnimate],
 }

@@ -11,8 +11,8 @@ const UserInfo = () => {
           <UserRoundIcon className="text-white" />
         </div>
         <div className="flex flex-col">
-          <p className="text-sm font-bold leading-none">username</p>
-          <p className="text-xs text-muted-foreground leading-none">mock role</p>
+          <p className="text-sm font-bold leading-none">mock 用户名</p>
+          <p className="text-xs text-muted-foreground leading-none">mock info</p>
         </div>
       </div>
       <ChevronsUpDownIcon

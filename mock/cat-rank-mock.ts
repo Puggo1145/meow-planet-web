@@ -1,4 +1,4 @@
-import type { ITodayRanksItemProps } from "@/app/(main)/today/_components/top-ranking/today-ranks-item"
+import type { ITodayRanksItemProps } from "@/app/(main)/today/_components/today-ranking/today-ranks-item"
 
 export const todayRanksMock: ITodayRanksItemProps[] = [
     {

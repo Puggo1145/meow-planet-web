@@ -27,12 +27,12 @@ interface Nav {
 const navs: Nav[] = [
   {
     icon: CompassIcon,
-    text: "Today",
+    text: "今日",
     href: "/today"
   },
   {
     icon: CatIcon,
-    text: "Cats",
+    text: "猫猫图鉴",
     href: "/cats"
   },
   {
@@ -42,17 +42,17 @@ const navs: Nav[] = [
   },
   {
     icon: ListOrderedIcon,
-    text: "Ranking",
+    text: "排行榜",
     href: "/ranking"
   },
   {
     icon: BellIcon,
-    text: "Notification",
+    text: "通知",
     href: "/notification"
   },
   {
     icon: SettingsIcon,
-    text: "Settings",
+    text: "设置",
     href: "/settings"
   }
 ]

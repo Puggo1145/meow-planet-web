@@ -12,7 +12,7 @@ const AuthHeader: React.FC = () => {
                 className="size-12"
             />
             <h1 className="absolute text-2xl font-bold text-primary-foreground top-1/2 -translate-y-1/2">
-                Make Things Happen
+                让美好发生
             </h1>
         </header>
     )

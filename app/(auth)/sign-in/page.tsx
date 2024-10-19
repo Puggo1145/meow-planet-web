@@ -6,7 +6,7 @@ const SignInPage: React.FC = () => {
   return (
     <div className="max-w-[320px] w-full flex flex-col items-center gap-y-8">
       <h1 className="text-2xl font-bold">
-        Sign in to Meow Planet
+        登录猫猫星球
       </h1>
       <SignInForm />
       <GotoSignUp />
@@ -20,12 +20,12 @@ export default SignInPage
 const GotoSignUp = () => {
   return (
     <div className="text-sm flex items-center gap-x-2">
-      <p>Do not have an account?</p>
+      <p>还没有账号?</p>
       <Link 
         href="/sign-up"
         className="underline"
       >
-        Sign up
+        去注册
       </Link>
     </div>
   )

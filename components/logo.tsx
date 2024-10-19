@@ -22,7 +22,7 @@ const Logo = ({
         height={40}
         className={className}
       />
-      {withName && <h1 className="text-lg font-bold text-primary">Meow Planet</h1>}
+      {withName && <h1 className="text-lg font-bold text-primary">猫猫星球</h1>}
     </div>
   )
 }
