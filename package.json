@@ -16,6 +16,7 @@
     "@radix-ui/react-scroll-area": "^1.2.0",
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
+    "appwrite": "^16.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "git-cz": "^4.9.0",
@@ -27,6 +28,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.53.0",
     "shadcn": "^2.1.0",
+    "sonner": "^1.5.0",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
