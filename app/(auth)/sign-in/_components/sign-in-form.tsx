@@ -3,9 +3,20 @@
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
 // ui
-import LabelInput from "@/components/label-input"
 import { Button } from "@/components/ui/button"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
 // components
 import { Loader } from "@/components/loader"
 // utils
@@ -14,60 +25,83 @@ import { toast } from "sonner"
 import { Account } from "appwrite"
 import { client } from "@/lib/appwrite"
 
+const formSchema = z.object({
+  email: z.string().email({ message: "请输入有效的邮箱地址" }),
+  password: z.string().min(8, { message: "密码至少需要8个字符" }),
+})
 
 const SignInForm = () => {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
     const router = useRouter()
-    const [isSubmiting, setIsSubmiting] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
-    const handleSignIn = async (e: React.FormEvent) => {
-        e.preventDefault()
-        setIsSubmiting(true);
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            email: "",
+            password: "",
+        },
+    })
+
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        setIsSubmitting(true)
 
         try {
             const account = new Account(client)
-            await account.createEmailPasswordSession(email, password)
-            toast.success("登录成功");
+            await account.createEmailPasswordSession(values.email, values.password)
+            toast.success("登录成功")
             router.push("/today") // Redirect to the main page after successful login
         } catch (err) {
-            toast.error("登录失败，请检查您的邮箱和密码");
+            console.log(err);
+            
+            toast.error("用户名或密码错误");
         } finally {
-            setIsSubmiting(false)
+            setIsSubmitting(false)
         }
     }
 
     return (
-        <form className="w-full flex flex-col gap-y-4" onSubmit={handleSignIn}>
-            <LabelInput
-                label="邮箱"
-                type="email"
-                placeholder="example@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-            />
-            <LabelInput
-                label="密码"
-                type="password"
-                placeholder="8+ characters"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-            />
-            <Link
-                href="/auth/reset-pwd"
-                className="self-end text-sm text-muted-foreground/80 hover:text-muted-foreground"
-            >
-                忘记密码?
-            </Link>
-            <Button type="submit" className="mt-4" disabled={isSubmiting}>
-                {isSubmiting ? 
-                    <Loader size="sm" color="white" />
-                    : "登录"
-                }
-            </Button>
-        </form>
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col gap-y-4">
+                <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>邮箱</FormLabel>
+                            <FormControl>
+                                <Input placeholder="example@email.com" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>密码</FormLabel>
+                            <FormControl>
+                                <Input type="password" placeholder="8+ characters" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <Link
+                    href="/auth/reset-pwd"
+                    className="self-end text-sm text-muted-foreground/80 hover:text-muted-foreground"
+                >
+                    忘记密码?
+                </Link>
+                <Button type="submit" className="mt-4" disabled={isSubmitting}>
+                    {isSubmitting ? 
+                        <Loader size="sm" color="white" />
+                        : "登录"
+                    }
+                </Button>
+            </form>
+        </Form>
     )
 }
 

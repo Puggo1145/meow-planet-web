@@ -13,6 +13,8 @@ import { Loader } from "@/components/loader";
 import { useRouter } from "next/navigation";
 // assets
 import images from "@/constants/images";
+import { Account } from "appwrite";
+import { client } from "@/lib/appwrite";
 
 type UserStatus = "loading" | "authenticated" | "unauthenticated";
 
@@ -21,20 +23,26 @@ const RootPage: React.FC = () => {
     const router = useRouter();
 
     useEffect(() => {
-        // if authenticated, redirect to /today
+        const checkAuthStatus = async () => {
+            try {
+                const account = new Account(client);
+                await account.get();
+                setStatus("authenticated");
+            } catch (error) {
+                setStatus("unauthenticated");
+            }
+        };
+
+        checkAuthStatus();
+    }, []);
+
+    useEffect(() => {
         if (status === "authenticated") {
             router.replace("/today");
-        }
-        // else, redirect to /sign-in
-        else if (status === "unauthenticated") {
+        } else if (status === "unauthenticated") {
             router.replace("/sign-in");
         }
-    }, [status]);
-
-    // mock user authentication status
-    setTimeout(() => {
-        setStatus("authenticated");
-    }, 1200);
+    }, [status, router]);
 
     return (
         <main className="w-full h-screen flex flex-col items-center justify-center">
@@ -43,8 +51,9 @@ const RootPage: React.FC = () => {
                 alt="LOGO"
                 className="w-[400px]"
                 width={400}
+                priority
             />
-            <Loader size={36} className="text-primary" />
+            <Loader size="xl" className="text-primary" />
         </main>
     );
 };

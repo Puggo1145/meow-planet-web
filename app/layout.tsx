@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Toaster } from "sonner";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "猫猫星球",
@@ -9,16 +9,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body
         className={`antialiased`}
       >
         {children}
-        <Toaster position="top-center" />
+        <Toaster />
       </body>
     </html>
   );
