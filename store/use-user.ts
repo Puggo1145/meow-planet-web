@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { Account, Models } from 'appwrite'
-import { client } from '@/lib/appwrite'
+import { account } from '@/lib/appwrite'
+import { uploadAvatar } from '@/lib/upload-avatar'
 
 type AuthStatus = "loading" | "authenticated" | "unauthenticated"
 
@@ -13,9 +14,10 @@ interface UserState {
   fetchUser: () => Promise<void>
   setUser: (user: Models.User<Models.Preferences> | null) => void
   logout: () => Promise<void>
+  updateAvatar: (file: File) => Promise<void>
 }
 
-export const useUserStore = create<UserState>((set) => ({
+export const useUserStore = create<UserState>((set, get) => ({
   user: null,
   status: "loading",
   error: null,
@@ -25,7 +27,6 @@ export const useUserStore = create<UserState>((set) => ({
    */
   initialize: async () => {
     try {
-      const account = new Account(client)
       const user = await account.get()
       set({ 
         user,
@@ -46,7 +47,6 @@ export const useUserStore = create<UserState>((set) => ({
   fetchUser: async () => {
     try {
       set({ status: "loading", error: null })
-      const account = new Account(client)
       const user = await account.get()
       set({ 
         user,
@@ -74,7 +74,6 @@ export const useUserStore = create<UserState>((set) => ({
    */
   logout: async () => {
     try {
-      const account = new Account(client)
       await account.deleteSession('current')
       set({
         user: null,
@@ -82,6 +81,32 @@ export const useUserStore = create<UserState>((set) => ({
       })
     } catch (error) {
       set({ error: error as Error })
+    }
+  },
+
+  /**
+   * @description 更新用户头像
+   */
+  updateAvatar: async (file: File) => {
+    try {
+      const user = get().user
+      if (!user) throw new Error('用户不存在')
+
+      // 上传头像
+      const avatarUrl = await uploadAvatar(file, user.$id)
+
+      // 更新用户偏好设置中的头像URL
+      await account.updatePrefs({
+        ...user.prefs,
+        avatarUrl
+      })
+
+      // 更新本地状态
+      const updatedUser = await account.get()
+      set({ user: updatedUser })
+    } catch (error) {
+      console.error('Update avatar failed:', error)
+      throw error
     }
   }
 })) 

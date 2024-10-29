@@ -20,8 +20,8 @@ import { Input } from "@/components/ui/input"
 // utils
 import { toast } from "sonner"
 // appwrite
-import { Account, ID } from "appwrite"
-import { client } from "@/lib/appwrite"
+import { ID } from "appwrite"
+import { account } from "@/lib/appwrite"
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -59,7 +59,6 @@ const SignUpForm = () => {
         setIsSubmitting(true);
 
         try {
-            const account = new Account(client)
             await account.create(ID.unique(), values.email, values.password, values.username)
             await account.createEmailPasswordSession(values.email, values.password)
             router.push("/today")

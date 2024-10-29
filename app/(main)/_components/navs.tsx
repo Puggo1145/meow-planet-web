@@ -7,7 +7,6 @@ import {
   ListOrderedIcon,
   HeartHandshakeIcon,
   BellIcon,
-  SettingsIcon,
 } from "lucide-react"
 // hooks
 import { usePathname } from "next/navigation";
@@ -45,16 +44,11 @@ const navs: Nav[] = [
     text: "排行榜",
     href: "/ranking"
   },
-  {
-    icon: BellIcon,
-    text: "通知",
-    href: "/notification"
-  },
-  {
-    icon: SettingsIcon,
-    text: "设置",
-    href: "/settings"
-  }
+  // {
+  //   icon: BellIcon,
+  //   text: "通知",
+  //   href: "/notification"
+  // },
 ]
 
 const Navs: React.FC = () => {

@@ -2,9 +2,9 @@ import { Button } from "@/components/ui/button"
 
 const FeedsHeader = () => {
     const mockFeedsNavs = [
-        "Trending",
-        "For You",
-        "Friends",
+        "当下",
+        "推荐",
+        "关注",
     ]
 
     return (

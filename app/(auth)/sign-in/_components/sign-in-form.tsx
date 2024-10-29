@@ -22,8 +22,7 @@ import { Loader } from "@/components/loader"
 // utils
 import { toast } from "sonner"
 // appwrite
-import { Account } from "appwrite"
-import { client } from "@/lib/appwrite"
+import { account } from "@/lib/appwrite"
 // store
 import { useUserStore } from '@/store/use-user'
 
@@ -49,7 +48,6 @@ const SignInForm = () => {
         setIsSubmitting(true)
 
         try {
-            const account = new Account(client)
             await account.createEmailPasswordSession(values.email, values.password)
             
             // 获取并存储用户信息
