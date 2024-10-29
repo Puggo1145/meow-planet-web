@@ -24,6 +24,9 @@ import { toast } from "sonner"
 // appwrite
 import { Account } from "appwrite"
 import { client } from "@/lib/appwrite"
+// store
+import { useUserStore } from '@/store/use-user'
+
 
 const formSchema = z.object({
   email: z.string().email({ message: "请输入有效的邮箱地址" }),
@@ -48,11 +51,14 @@ const SignInForm = () => {
         try {
             const account = new Account(client)
             await account.createEmailPasswordSession(values.email, values.password)
-            toast.success("登录成功")
-            router.push("/today") // Redirect to the main page after successful login
-        } catch (err) {
-            console.log(err);
             
+            // 获取并存储用户信息
+            const user = await account.get()
+            useUserStore.getState().setUser(user)
+            
+            toast.success("登录成功")
+            router.push("/today")
+        } catch (err) {
             toast.error("用户名或密码错误");
         } finally {
             setIsSubmitting(false)

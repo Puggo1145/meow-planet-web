@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { UserProvider } from "@/components/providers/user-provider";
 
 export const metadata: Metadata = {
   title: "猫猫星球",
@@ -14,10 +15,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`antialiased`}
-      >
-        {children}
+      <body className="antialiased">
+        <UserProvider>
+          {children}
+        </UserProvider>
         <Toaster />
       </body>
     </html>
