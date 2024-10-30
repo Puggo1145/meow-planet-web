@@ -8,8 +8,8 @@ const FeedsHeader = () => {
     ]
 
     return (
-        <div className="flex justify-between py-6">
-            <h1 className="text-2xl font-black">Feeds</h1>
+        <div className="flex justify-between items-center py-6">
+            <h1 className="text-2xl font-black">今日</h1>
             <div className="flex">
                 {mockFeedsNavs.map((nav, index) => (
                     <Button

@@ -1,14 +1,14 @@
 "use client"
 
 // layout
-import { 
+import {
   MainContainer,
-  RightContainer 
+  RightContainer
 } from "@/components/containers/main-page-containers"
 // components
 import FeedsHeader from "./_components/feeds/feeds-header"
 import FeedsList from "./_components/feeds/feeds-list"
-import FeedsReply from "./_components/feeds/feeds-reply"
+import { FeedsUpload } from "./_components/feeds/feeds-upload"
 import TodayRanks from "./_components/today-ranks"
 import NewCats from "./_components/new-cats"
 
@@ -17,7 +17,6 @@ const FeedsPage = () => {
     <>
       <MainContainer>
         <FeedsHeader />
-        <FeedsReply />
         <FeedsList />
       </MainContainer>
       <RightContainer>

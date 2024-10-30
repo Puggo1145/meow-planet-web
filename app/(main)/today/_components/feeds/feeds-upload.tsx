@@ -23,7 +23,7 @@ const FeedsReplyFnBtn = ({ children, ...props }: ComponentProps<'button'>) => {
   )
 };
 
-const FeedsReply = () => {
+export const FeedsUpload = () => {
   return (
     <section className="w-full bg-secondary rounded-2xl p-4">
       {/* TODO: replace original form with Form component */}
@@ -51,5 +51,3 @@ const FeedsReply = () => {
     </section>
   )
 }
-
-export default FeedsReply
