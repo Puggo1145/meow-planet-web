@@ -5,7 +5,7 @@ import { HeartIcon } from 'lucide-react'
 
 export const CatCard = ({ children }: { children: React.ReactNode }) => {
     return (
-        <li className='w-56 h-80 flex flex-col rounded-2xl overflow-hidden bg-background
+        <li className='w-52 h-80 flex flex-col rounded-2xl overflow-hidden bg-background
         border-2 border-secondary cursor-pointer hover:bg-secondary hover:scale-[1.02] duration-300'>
             {children}
         </li>

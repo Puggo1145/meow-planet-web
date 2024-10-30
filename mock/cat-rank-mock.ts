@@ -4,35 +4,35 @@ export const todayRanksMock: ITodayRanksItemProps[] = [
     {
         id: 1,
         catImage: "",
-        catName: "PiPi",
+        catName: "屁屁",
         rank: 1,
         hotValue: 15672
     },
     {
         id: 2,
         catImage: "",
-        catName: "Kitty",
+        catName: "小袜子",
         rank: 2,
         hotValue: 8412
     },
     {
         id: 3,
         catImage: "",
-        catName: "Mimi",
+        catName: "山竹",
         rank: 3,
         hotValue: 7123
     },
     {
         id: 4,
         catImage: "",
-        catName: "Momo",
+        catName: "某不知名猫咪",
         rank: 4,
         hotValue: 5123
     },
     {
         id: 5,
         catImage: "",
-        catName: "Coco",
+        catName: "某不知名猫咪",
         rank: 5,
         hotValue: 4155
     },
