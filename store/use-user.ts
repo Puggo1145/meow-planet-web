@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { Account, Models } from 'appwrite'
+import { Models } from 'appwrite'
 import { account } from '@/lib/appwrite'
 import { uploadAvatar } from '@/lib/upload-avatar'
 
@@ -104,9 +104,8 @@ export const useUserStore = create<UserState>((set, get) => ({
       // 更新本地状态
       const updatedUser = await account.get()
       set({ user: updatedUser })
-    } catch (error) {
-      console.error('Update avatar failed:', error)
-      throw error
+    } catch (error: any) {
+      throw new Error('更新头像失败: ' + error.message)
     }
   }
 })) 

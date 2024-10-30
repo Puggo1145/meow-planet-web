@@ -10,5 +10,5 @@ export const storage = new Storage(client);
 
 // 存储桶 ID 常量
 export const BUCKETS_IDS = {
-    AVATARS: 'user_avatars'
+    AVATARS: '6720ad040000adf8a982'
 } as const;

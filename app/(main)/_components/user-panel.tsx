@@ -55,7 +55,7 @@ const UserPanelTrigger = () => {
             <div className="flex items-center gap-x-4 cursor-pointer
                 hover:bg-secondary rounded-2xl py-4 px-2">
                 <Avatar className="size-10">
-                    <AvatarImage src="" />
+                    <AvatarImage src={user?.prefs?.avatarUrl} />
                     <AvatarFallback>
                         {user?.name?.[0]}
                     </AvatarFallback>
@@ -73,8 +73,6 @@ const UserPanelTrigger = () => {
         </DropdownMenuTrigger>
     )
 }
-
-
 
 
 const UserPanelContent = () => {

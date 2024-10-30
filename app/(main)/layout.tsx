@@ -7,7 +7,7 @@ import type { ComponentProps } from "react"
 
 const MainLayout = ({ children }: ComponentProps<'div'>) => {
   return (
-    <div className="max-w-[1440px] w-full h-screen mx-auto flex">
+    <main className="max-w-[1440px] w-full h-screen mx-auto flex">
       <LeftContainer>
         <UserPanel />
         <section className="flex-1 flex flex-col justify-between">
@@ -16,7 +16,7 @@ const MainLayout = ({ children }: ComponentProps<'div'>) => {
         </section>
       </LeftContainer>
       {children}
-    </div>
+    </main>
   )
 }
 

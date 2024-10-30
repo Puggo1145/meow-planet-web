@@ -1,5 +1,4 @@
 import { storage, BUCKETS_IDS } from './appwrite'
-import { toast } from 'sonner'
 
 export const uploadAvatar = async (file: File, userId: string) => {
   try {
@@ -18,7 +17,6 @@ export const uploadAvatar = async (file: File, userId: string) => {
 
     return avatarUrl
   } catch (error: any) {
-    toast.error('上传头像失败', { description: error.message })
-    throw new Error(error.message)
+    throw new Error('上传头像失败: ' + error.message)
   }
 } 
