@@ -25,6 +25,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
                 router.replace("/today");
             }
         } else if (status === "unauthenticated") {
+            if (["/sign-in", "/sign-up"].includes(pathname)) {
+                return;
+            }
+            
             router.replace("/sign-in");
         }
     }, [status, router, initialize, pathname]);

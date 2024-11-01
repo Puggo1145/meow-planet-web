@@ -1,4 +1,10 @@
-import { Client, Account, Storage, Teams, Databases } from 'appwrite';
+import { 
+    Client, 
+    Account, 
+    Storage, 
+    Teams, 
+    Databases,
+} from 'appwrite';
 
 const client = new Client()
     .setEndpoint('http://localhost:8000/v1')
@@ -18,7 +24,7 @@ export const BUCKETS_IDS = {
 
 // 用户角色常量
 export const TEAM_IDS = {
-    ADMINS: 'ADMINS',
+    ADMINS: process.env.NEXT_PUBLIC_APPWRITE_TEAM_ID_ADMINS!,
 } as const;
 
 // Database IDs 常量
