@@ -1,5 +1,10 @@
+// ui
 import { Button } from "@/components/ui/button"
+// icons
 import { UploadIcon } from "lucide-react"
+// utils
+import Link from "next/link"
+
 export const CatsHeader = () => {
   return (
     <header className="w-full flex items-center justify-between gap-x-6 py-4">
@@ -9,9 +14,14 @@ export const CatsHeader = () => {
           已收录 124 只猫咪
         </span>
       </div>
-      <Button className="flex items-center gap-x-2">
-        <UploadIcon className="size-4" />
-        上传猫咪
+      <Button
+        asChild
+        className="flex items-center gap-x-2"
+      >
+        <Link href="/cats/upload">
+          <UploadIcon className="size-4" />
+          上传猫咪
+        </Link>
       </Button>
     </header>
   )

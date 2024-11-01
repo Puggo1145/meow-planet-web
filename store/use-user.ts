@@ -4,15 +4,22 @@ import { account } from '@/lib/appwrite'
 import { uploadAvatar } from '@/lib/upload-avatar'
 
 type AuthStatus = "loading" | "authenticated" | "unauthenticated"
+type UserInfo = Pick<
+Models.User<Models.Preferences>, 
+  "$id" |
+  "name" | 
+  "email" |
+  "prefs"
+>
 
 interface UserState {
-  user: Models.User<Models.Preferences> | null
+  user: UserInfo | null
   status: AuthStatus
   error: Error | null
   
   initialize: () => Promise<void>
   fetchUser: () => Promise<void>
-  setUser: (user: Models.User<Models.Preferences> | null) => void
+  setUser: (user: UserInfo | null) => void
   logout: () => Promise<void>
   updateAvatar: (file: File) => Promise<void>
 }
@@ -29,7 +36,7 @@ export const useUserStore = create<UserState>((set, get) => ({
     try {
       const user = await account.get()
       set({ 
-        user,
+        user: filterUserInfo(user),
         status: "authenticated" 
       })
     } catch (error) {
@@ -49,7 +56,7 @@ export const useUserStore = create<UserState>((set, get) => ({
       set({ status: "loading", error: null })
       const user = await account.get()
       set({ 
-        user,
+        user: filterUserInfo(user),
         status: "authenticated" 
       })
     } catch (error) {
@@ -104,8 +111,17 @@ export const useUserStore = create<UserState>((set, get) => ({
       // 更新本地状态
       const updatedUser = await account.get()
       set({ user: updatedUser })
-    } catch (error: any) {
-      throw new Error('更新头像失败: ' + error.message)
+    } catch (error) {
+      throw new Error('更新头像失败: ' + (error as Error).message)
     }
   }
-})) 
+}))
+
+const filterUserInfo = (user: UserInfo) => {
+  return {
+    $id: user.$id,
+    name: user.name,
+    email: user.email,
+    prefs: user.prefs
+  }
+}

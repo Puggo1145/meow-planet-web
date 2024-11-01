@@ -16,7 +16,7 @@ export const uploadAvatar = async (file: File, userId: string) => {
     )
 
     return avatarUrl
-  } catch (error: any) {
-    throw new Error('上传头像失败: ' + error.message)
+  } catch (error) {
+    throw new Error('上传头像失败: ' + (error as Error).message)
   }
 } 

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+// providers
+import { ProgressBarProvider } from "@/components/providers/progress-bar-provider";
 import { UserProvider } from "@/components/providers/user-provider";
 
 export const metadata: Metadata = {
@@ -17,7 +19,9 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         <UserProvider>
-          {children}
+          <ProgressBarProvider>
+            {children}
+          </ProgressBarProvider>
         </UserProvider>
         <Toaster />
       </body>

@@ -3,12 +3,17 @@ import landingLogo from "@/assets/images/landing-logo.png"
 import mockCat1 from '@/assets/images/mock-cat-1.jpg';
 import mockCat2 from '@/assets/images/mock-cat-2.jpg';
 import mockCat3 from '@/assets/images/mock-cat-3.jpg';
+// auth
+import authIllustration1 from '@/assets/images/auth/auth-illustration1.png'
+import authIllustration2 from '@/assets/images/auth/auth-illustration2.png'
 
 const images = {
     landingLogo,
     mockCat1,
     mockCat2,
     mockCat3,
+    authIllustration1,
+    authIllustration2,
 };
 
 export default images;

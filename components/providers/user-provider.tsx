@@ -1,11 +1,14 @@
 "use client"
 
+import { usePathname } from "next/navigation"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import { useUserStore } from "@/store/use-user"
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const router = useRouter()
+    const pathname = usePathname()
+    
     const {
         initialize,
         status,
@@ -14,16 +17,17 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         if (status === "loading") {
             initialize();
-            
             return;
         };
 
         if (status === "authenticated") {
-            router.replace("/today");
+            if (["/", "/sign-in", "/sign-up"].includes(pathname)) {
+                router.replace("/today");
+            }
         } else if (status === "unauthenticated") {
             router.replace("/sign-in");
         }
-    }, [status, router, initialize]);
+    }, [status, router, initialize, pathname]);
 
     return <>{children}</>
 } 

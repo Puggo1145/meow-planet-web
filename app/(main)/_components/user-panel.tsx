@@ -26,12 +26,13 @@ import {
 } from "lucide-react"
 // utils
 import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { cn } from "@/lib/utils"
 // store
 import { useUserStore } from "@/store/use-user"
 import { useState } from "react"
 
 export const UserPanel = () => {
-
     return (
         <DropdownMenu>
             <UserPanelTrigger />
@@ -42,18 +43,19 @@ export const UserPanel = () => {
 
 const UserPanelTrigger = () => {
     const user = useUserStore(state => state.user)
+    const pathname = usePathname();
 
     if (!user) return (
-        <div className="flex items-center gap-x-4 cursor-pointer
-        hover:bg-secondary rounded-2xl py-4 px-2">
+        <div className="flex items-center gap-x-4 cursor-pointer hover:bg-secondary rounded-2xl py-4 px-2">
             <Loader size="sm" />
         </div>
     )
 
     return (
         <DropdownMenuTrigger asChild>
-            <div className="flex items-center gap-x-4 cursor-pointer
-                hover:bg-secondary rounded-2xl py-4 px-2">
+            <div className={cn("flex items-center gap-x-4 cursor-pointer hover:bg-secondary rounded-2xl py-4 px-2",
+                pathname === "/user" && "bg-secondary"
+            )}>
                 <Avatar className="size-10">
                     <AvatarImage src={user?.prefs?.avatarUrl} />
                     <AvatarFallback>

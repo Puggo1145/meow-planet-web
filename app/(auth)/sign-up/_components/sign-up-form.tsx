@@ -9,14 +9,16 @@ import * as z from "zod"
 import { Button } from "@/components/ui/button"
 import { Loader } from "@/components/loader"
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+// store
+import { useUserStore } from "@/store/use-user"
 // utils
 import { toast } from "sonner"
 // appwrite
@@ -24,21 +26,21 @@ import { ID } from "appwrite"
 import { account } from "@/lib/appwrite"
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "用户名至少需要2个字符。",
-  }),
-  email: z.string().email({
-    message: "请输入有效的邮箱地址。",
-  }),
-  password: z.string().min(8, {
-    message: "密码至少需要8个字符。",
-  }).regex(/^(?=.*[a-z])(?=.*[A-Z])/, {
-    message: "密码必须包含大小写字母。",
-  }),
-  confirmPassword: z.string(),
+    username: z.string().min(2, {
+        message: "用户名至少需要2个字符。",
+    }),
+    email: z.string().email({
+        message: "请输入有效的邮箱地址。",
+    }),
+    password: z.string().min(8, {
+        message: "密码至少需要8个字符。",
+    }).regex(/^(?=.*[a-z])(?=.*[A-Z])/, {
+        message: "密码必须包含大小写字母。",
+    }),
+    confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
-  message: "两次输入的密码不一致",
-  path: ["confirmPassword"],
+    message: "两次输入的密码不一致",
+    path: ["confirmPassword"],
 })
 
 const SignUpForm = () => {
@@ -59,10 +61,17 @@ const SignUpForm = () => {
         setIsSubmitting(true);
 
         try {
-            await account.create(ID.unique(), values.email, values.password, values.username)
+            await account.create(
+                ID.unique(),
+                values.email,
+                values.password,
+                values.username
+            )
             await account.createEmailPasswordSession(values.email, values.password)
+            useUserStore.getState().initialize()
+            toast.success("注册成功，欢迎加入猫猫星球！")
             router.push("/today")
-        } catch (err) {
+        } catch {
             toast.error("注册失败，请稍后重试");
         } finally {
             setIsSubmitting(false)

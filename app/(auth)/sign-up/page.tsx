@@ -7,7 +7,7 @@ const SignInPage: React.FC = () => {
   return (
     <div className="max-w-[320px] w-full flex flex-col items-center gap-y-8">
       <h1 className="text-2xl font-bold">
-        注册猫猫星球
+        加入猫猫星球
       </h1>
       <SignUpForm />
       <GotoSignUp />

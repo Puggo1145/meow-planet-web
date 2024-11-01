@@ -17,12 +17,12 @@ import { mockCats } from "@/mock/cats-mock"
 
 const CatsPage = () => {
   return (
-    <div className="flex-1 overflow-hidden flex flex-col gap-y-4">
+    <div className="flex-1 overflow-hidden flex flex-col gap-y-4 pl-1">
       <CatsHeader />
       <CatsSearch />
-      <CatsMaintainers />
       <ScrollArea className="flex-1">
-        <ul className="w-fit grid grid-cols-5 gap-4">
+        <CatsMaintainers />
+        <ul className="mt-4 w-fit grid grid-cols-5 gap-4">
           {mockCats.map((cat) => (
             <CatCard key={cat.id}>
               <CatCardImage src={cat.image.src} />

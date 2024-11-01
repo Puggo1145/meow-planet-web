@@ -18,7 +18,8 @@ export const CatCardImage = ({ src }: { src: string }) => {
             <Image
                 src={src}
                 alt="cat"
-                fill
+                width={100}
+                height={100}
                 className='w-full h-full object-cover'
             />
         </div>
