@@ -2,8 +2,15 @@
 
 import { useEffect, useState } from "react"
 // ui
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+// icons
 import { SparklesIcon } from "lucide-react"
 // api
 import { getCatMaintainers } from "@/services/users"
@@ -21,7 +28,7 @@ export const CatsMaintainers = () => {
       try {
         const maintainers = await getCatMaintainers()
         setMaintainers(maintainers)
-    } catch (error) {
+      } catch (error) {
         toast.error("获取管理员列表失败: " + (error as Error).message)
       } finally {
         setIsLoading(false)
@@ -40,16 +47,25 @@ export const CatsMaintainers = () => {
           感谢以下猫猫图鉴的管理员们
         </p>
         <ul className='w-fit flex items-center'>
-          {maintainers.map((maintainer) => (
-            <li key={maintainer.$id}>
-              <Avatar className="size-12 -ml-2 border-2 border-secondary">
-                <AvatarImage src={maintainer.avatarUrl} />
-                <AvatarFallback className="bg-background">
-                  {maintainer.name?.[0]}
-                </AvatarFallback>
-              </Avatar>
-            </li>
-          ))}
+          <TooltipProvider>
+            {maintainers.map((maintainer) => (
+              <li key={maintainer.$id}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Avatar className="size-12 -ml-2 border-2 border-secondary">
+                      <AvatarImage src={maintainer.avatarUrl} />
+                      <AvatarFallback className="bg-background">
+                        {maintainer.name?.[0]}
+                      </AvatarFallback>
+                    </Avatar>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{maintainer.name}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </li>
+            ))}
+          </TooltipProvider>
         </ul>
       </section>
       <section className="flex items-center gap-x-2">

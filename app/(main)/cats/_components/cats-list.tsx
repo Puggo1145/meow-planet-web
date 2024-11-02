@@ -14,11 +14,9 @@ import type { CatDocument } from "@/types/cats"
 
 interface CatsListProps {
     cats: CatDocument[]
-    isLoading?: boolean
-    hasMore?: boolean
 }
 
-export const CatsList = ({ cats, isLoading, hasMore }: CatsListProps) => {
+export const CatsList = ({ cats }: CatsListProps) => {
     return (
         <>
             <ul className="mt-4 w-fit grid grid-cols-5 gap-4">

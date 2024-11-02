@@ -22,12 +22,16 @@ const CatsPage = () => {
     const [cats, setCats] = useState<CatDocument[]>([])
     const [isLoading, setIsLoading] = useState(false)
     const [hasMore, setHasMore] = useState(true)
+    const [keyword, setKeyword] = useState<string | undefined>(undefined)
     const loadMoreRef = useRef<HTMLDivElement>(null)
 
     const loadCats = async (cursor?: string) => {
         try {
             setIsLoading(true)
-            const { cats: newCats, hasMore: more } = await getCats({ cursor })
+            const { cats: newCats, hasMore: more } = await getCats({ 
+                cursor,
+                keyword 
+            })
             
             if (cursor) {
                 setCats(prev => [...prev, ...newCats])
@@ -41,6 +45,8 @@ const CatsPage = () => {
             setIsLoading(false)
         }
     }
+
+    const handleSearch = (newKeyword: string) => setKeyword(newKeyword)
 
     const handleLoadMore = () => {
         if (isLoading || !hasMore) return
@@ -56,12 +62,12 @@ const CatsPage = () => {
 
     useEffect(() => {
         loadCats()
-    }, [])
+    }, [keyword])
 
     return (
         <div className="flex-1 overflow-hidden flex flex-col gap-y-4 pl-1">
-            <CatsHeader catsCount={cats.length} />
-            <CatsSearch />
+            <CatsHeader />
+            <CatsSearch onSearch={handleSearch} isSearching={isLoading} />
             <ScrollArea className="flex-1">
                 <CatsMaintainers />
                 <CatsList cats={cats} />
