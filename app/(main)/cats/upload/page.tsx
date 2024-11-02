@@ -33,11 +33,14 @@ import { ImageIcon, Cat, X } from "lucide-react"
 // utils
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
+// services
+import { createCat, createCatImages } from "@/services/cats"
+// hooks
+import { useImages } from "@/hooks/use-images"
+// constants
+import { BUCKETS_IDS } from "@/lib/appwrite"
 // types
 import type { CreateCatData, CreateCatImageData } from "@/types/cats"
-import { useImages } from "@/hooks/use-images"
-import { BUCKETS_IDS } from "@/lib/appwrite"
-import { createCat, createCatImages } from "@/api/cats"
 
 const formSchema = z.object({
     name: z.string().min(1, {
@@ -149,10 +152,9 @@ const CatUploadPage = () => {
             const cat = await createCat(createCatData)
 
             // 3. 创建猫咪图片记录
-            const createImagesData: CreateCatImageData[] = uploadedFiles.map((file, index) => ({
+            const createImagesData: CreateCatImageData[] = uploadedFiles.map((file) => ({
                 url: file.url,
-                catId: cat.id,
-                order: index
+                catId: cat.$id,
             }))
 
             await createCatImages(createImagesData)

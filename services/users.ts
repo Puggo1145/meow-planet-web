@@ -3,7 +3,7 @@
 import { users } from "@/lib/appwrite-server"
 import { Query } from "node-appwrite"
 
-interface Maintainer {
+export interface Maintainer {
   id: string
   name: string
   email: string

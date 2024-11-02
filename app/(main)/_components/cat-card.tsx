@@ -1,7 +1,7 @@
 // components
 import Image from 'next/image'
 // icon
-import { HeartIcon } from 'lucide-react'
+import { HeartIcon, ImageOffIcon } from 'lucide-react'
 
 export const CatCard = ({ children }: { children: React.ReactNode }) => {
     return (
@@ -15,13 +15,20 @@ export const CatCard = ({ children }: { children: React.ReactNode }) => {
 export const CatCardImage = ({ src }: { src: string }) => {
     return (
         <div className='relative w-full flex-1 overflow-hidden '>
-            <Image
-                src={src}
-                alt="cat"
-                width={100}
-                height={100}
-                className='w-full h-full object-cover'
-            />
+            {src
+                ?
+                <Image
+                    src={src}
+                    alt="cat"
+                    width={100}
+                    height={100}
+                    className='w-full h-full object-cover'
+                />
+                :
+                <div className='flex items-center justify-center w-full h-full bg-secondary'>
+                    <ImageOffIcon className='size-8 text-muted-foreground' />
+                </div>
+            }
         </div>
     )
 }

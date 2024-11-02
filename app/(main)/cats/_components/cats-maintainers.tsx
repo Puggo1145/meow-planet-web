@@ -6,16 +6,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { SparklesIcon } from "lucide-react"
 // api
-import { getCatMaintainers } from "@/api/users"
+import { getCatMaintainers } from "@/services/users"
 // utils
 import { toast } from "sonner"
-
-interface Maintainer {
-  id: string
-  name: string
-  email: string
-  avatarUrl?: string
-}
+// types
+import { Maintainer } from "@/services/users"
 
 export const CatsMaintainers = () => {
   const [maintainers, setMaintainers] = useState<Maintainer[]>([])
