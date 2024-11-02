@@ -6,7 +6,7 @@ import {
   CatIcon,
   ListOrderedIcon,
   HeartHandshakeIcon,
-  BellIcon,
+  // BellIcon,
 } from "lucide-react"
 // hooks
 import { usePathname } from "next/navigation";
@@ -62,7 +62,7 @@ const Navs: React.FC = () => {
             href={nav.href}
             className={cn(
               "flex items-center gap-x-3 p-4 cursor-pointer hover:bg-secondary rounded-2xl",
-              pathname === nav.href && "bg-primary text-primary-foreground hover:bg-primary"
+              pathname.includes(nav.href) && "bg-primary text-primary-foreground hover:bg-primary"
             )}
           >
             <nav.icon size={24} />

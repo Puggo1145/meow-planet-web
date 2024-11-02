@@ -3,11 +3,11 @@ import { Models } from 'appwrite'
 import { account } from '@/lib/appwrite'
 import { uploadAvatar } from '@/lib/upload-avatar'
 
-type AuthStatus = "loading" | "authenticated" | "unauthenticated"
-type UserInfo = Pick<
-Models.User<Models.Preferences>, 
+export type AuthStatus = "loading" | "authenticated" | "unauthenticated"
+export type UserInfo = Pick<
+  Models.User<Models.Preferences>,
   "$id" |
-  "name" | 
+  "name" |
   "email" |
   "prefs"
 >
@@ -16,12 +16,13 @@ interface UserState {
   user: UserInfo | null
   status: AuthStatus
   error: Error | null
-  
+
   initialize: () => Promise<void>
   fetchUser: () => Promise<void>
   setUser: (user: UserInfo | null) => void
   logout: () => Promise<void>
   updateAvatar: (file: File) => Promise<void>
+  updateUserPrefs: (prefs: Partial<Models.Preferences>) => Promise<void>
 }
 
 export const useUserStore = create<UserState>((set, get) => ({
@@ -35,15 +36,15 @@ export const useUserStore = create<UserState>((set, get) => ({
   initialize: async () => {
     try {
       const user = await account.get()
-      set({ 
+      set({
         user: filterUserInfo(user),
-        status: "authenticated" 
+        status: "authenticated"
       })
     } catch (error) {
-      set({ 
+      set({
         user: null,
         status: "unauthenticated",
-        error: error as Error 
+        error: error as Error
       })
     }
   },
@@ -55,15 +56,15 @@ export const useUserStore = create<UserState>((set, get) => ({
     try {
       set({ status: "loading", error: null })
       const user = await account.get()
-      set({ 
+      set({
         user: filterUserInfo(user),
-        status: "authenticated" 
+        status: "authenticated"
       })
     } catch (error) {
-      set({ 
+      set({
         user: null,
         status: "unauthenticated",
-        error: error as Error 
+        error: error as Error
       })
     }
   },
@@ -71,9 +72,9 @@ export const useUserStore = create<UserState>((set, get) => ({
   /**
    * @description 设置用户信息
    */
-  setUser: (user) => set({ 
+  setUser: (user) => set({
     user,
-    status: user ? "authenticated" : "unauthenticated" 
+    status: user ? "authenticated" : "unauthenticated"
   }),
 
   /**
@@ -84,7 +85,7 @@ export const useUserStore = create<UserState>((set, get) => ({
       await account.deleteSession('current')
       set({
         user: null,
-        status: "unauthenticated" 
+        status: "unauthenticated"
       })
     } catch (error) {
       set({ error: error as Error })
@@ -113,6 +114,28 @@ export const useUserStore = create<UserState>((set, get) => ({
       set({ user: updatedUser })
     } catch (error) {
       throw new Error('更新头像失败: ' + (error as Error).message)
+    }
+  },
+
+  updateUserPrefs: async (prefs) => {
+    try {
+      const updatedPrefs = {
+        ...get().user?.prefs,
+        ...prefs
+      }
+
+      const response = await account.updatePrefs(updatedPrefs)
+
+      set(state => ({
+        user: state.user
+          ? {
+            ...state.user,
+            prefs: response.prefs
+          }
+          : null
+      }))
+    } catch (error) {
+      throw new Error("更新用户偏好失败: " + (error as Error).message)
     }
   }
 }))

@@ -41,6 +41,8 @@ import { useImages } from "@/hooks/use-images"
 import { BUCKETS_IDS } from "@/lib/appwrite"
 // types
 import type { CreateCatData, CreateCatImageData } from "@/types/cats"
+// store
+import { useUserStore } from "@/store/use-user"
 
 const formSchema = z.object({
     name: z.string().min(1, {
@@ -105,6 +107,7 @@ AvatarPreview.displayName = 'AvatarPreview'
 const CatUploadPage = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const router = useRouter()
+    const { user } = useUserStore()
 
     const {
         images,
@@ -132,6 +135,12 @@ const CatUploadPage = () => {
     })
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        if (!user) {
+            toast.error("请先登录")
+            router.push("/sign-in")
+            return
+        }
+
         if (images.length === 0) {
             toast.error("请至少上传一张图片")
             return
@@ -147,6 +156,7 @@ const CatUploadPage = () => {
             const createCatData: CreateCatData = {
                 ...values,
                 avatarUrl: uploadedFiles[avatarIndex].url,
+                createdBy: user.$id,
             }
 
             const cat = await createCat(createCatData)

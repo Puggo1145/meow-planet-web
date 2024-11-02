@@ -5,10 +5,12 @@ import { PageHeader } from '@/components/page-header'
 
 const UploadLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <ScrollArea className="h-full">
-        <PageHeader title="创建猫咪档案" useBackButton />
+    <>
+      <PageHeader title="创建猫咪档案" useBackButton />
+      <ScrollArea className="h-full">
         {children}
-    </ScrollArea>
+      </ScrollArea>
+    </>
   )
 }
 

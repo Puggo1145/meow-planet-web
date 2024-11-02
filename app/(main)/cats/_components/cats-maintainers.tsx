@@ -41,7 +41,7 @@ export const CatsMaintainers = () => {
         </p>
         <ul className='w-fit flex items-center'>
           {maintainers.map((maintainer) => (
-            <li key={maintainer.id}>
+            <li key={maintainer.$id}>
               <Avatar className="size-12 -ml-2 border-2 border-secondary">
                 <AvatarImage src={maintainer.avatarUrl} />
                 <AvatarFallback className="bg-background">
@@ -53,11 +53,11 @@ export const CatsMaintainers = () => {
         </ul>
       </section>
       <section className="flex items-center gap-x-2">
-        <Button className="flex items-center gap-x-2">
+        <Button className="flex items-center gap-x-2" disabled>
           <SparklesIcon className="size-4" />
           打赏
         </Button>
-        <Button variant="outline">
+        <Button variant="outline" disabled>
           成为管理员
         </Button>
       </section>
