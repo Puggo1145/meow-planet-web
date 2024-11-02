@@ -1,6 +1,6 @@
 "use server"
 
-import { users } from "@/lib/appwrite-server"
+import { createAdminClient } from "@/lib/appwrite-server"
 import { Query } from "node-appwrite"
 
 export interface Maintainer {
@@ -11,6 +11,7 @@ export interface Maintainer {
 
 export const getCatMaintainers = async (): Promise<Maintainer[]> => {
   try {
+    const { users } = await createAdminClient()
     const maintainers = await users.list([Query.contains('labels', 'catMaintainer')])
     const formattedMaintainers = maintainers.users.map(user => ({
       $id: user.$id,
@@ -26,6 +27,7 @@ export const getCatMaintainers = async (): Promise<Maintainer[]> => {
 
 export const getUserById = async (id: string) => {
   try {
+    const { users } = await createAdminClient()
     return await users.get(id)
   } catch (error) {
     throw new Error("获取用户信息失败: " + (error as Error).message)

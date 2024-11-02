@@ -11,7 +11,7 @@ import { getCatsCount } from "@/services/cats"
 import Link from "next/link"
 import { Skeleton } from "@/components/ui/skeleton"
 
-export const  CatsHeader = () => {
+export const CatsHeader = () => {
     const [catsCount, setCatsCount] = useState<number>()
 
     useEffect(() => {
@@ -37,7 +37,7 @@ export const  CatsHeader = () => {
             >
                 <Link href="/cats/upload">
                     <UploadIcon className="size-4" />
-                    上传猫咪
+                    创建猫咪
                 </Link>
             </Button>
         </header>

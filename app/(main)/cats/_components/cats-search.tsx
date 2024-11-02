@@ -57,7 +57,7 @@ export const CatsSearch = ({ onSearch, isSearching }: CatsSearchProps) => {
       <Button 
         className="flex items-center gap-x-2 size-[60px]"
         onClick={handleSearch}
-        disabled={isSearching}
+        disabled={isSearching || !keyword}
       >
         {isSearching ? <Loader size="sm" /> : <SearchIcon className="size-6" />}
       </Button>

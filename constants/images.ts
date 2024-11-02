@@ -6,6 +6,7 @@ import mockCat3 from '@/assets/images/mock-cat-3.jpg';
 // auth
 import authIllustration1 from '@/assets/images/auth/auth-illustration1.png'
 import authIllustration2 from '@/assets/images/auth/auth-illustration2.png'
+import unauthorized from '@/assets/images/auth/unauthorized.png'
 
 const images = {
     landingLogo,
@@ -14,6 +15,7 @@ const images = {
     mockCat3,
     authIllustration1,
     authIllustration2,
+    unauthorized,
 };
 
 export default images;

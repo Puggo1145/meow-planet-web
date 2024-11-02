@@ -2,24 +2,20 @@ import { create } from 'zustand'
 import { Models } from 'appwrite'
 import { account } from '@/lib/appwrite'
 import { uploadAvatar } from '@/lib/upload-avatar'
+import { teams } from '@/lib/appwrite'
 
 export type AuthStatus = "loading" | "authenticated" | "unauthenticated"
-export type UserInfo = Pick<
-  Models.User<Models.Preferences>,
-  "$id" |
-  "name" |
-  "email" |
-  "prefs"
->
 
 interface UserState {
-  user: UserInfo | null
+  user: Models.User<Models.Preferences> | null
   status: AuthStatus
+  teams: Models.Team<Models.Preferences>[] | null
   error: Error | null
 
   initialize: () => Promise<void>
   fetchUser: () => Promise<void>
-  setUser: (user: UserInfo | null) => void
+  fetchTeams: () => Promise<void>
+  setUser: (user: Models.User<Models.Preferences> | null) => void
   logout: () => Promise<void>
   updateAvatar: (file: File) => Promise<void>
   updateUserPrefs: (prefs: Partial<Models.Preferences>) => Promise<void>
@@ -27,6 +23,7 @@ interface UserState {
 
 export const useUserStore = create<UserState>((set, get) => ({
   user: null,
+  teams: null,
   status: "loading",
   error: null,
 
@@ -36,13 +33,17 @@ export const useUserStore = create<UserState>((set, get) => ({
   initialize: async () => {
     try {
       const user = await account.get()
+      const teamsResponse = await teams.list()
+      
       set({
-        user: filterUserInfo(user),
+        user,
+        teams: teamsResponse.teams,
         status: "authenticated"
       })
     } catch (error) {
       set({
         user: null,
+        teams: null,
         status: "unauthenticated",
         error: error as Error
       })
@@ -57,7 +58,7 @@ export const useUserStore = create<UserState>((set, get) => ({
       set({ status: "loading", error: null })
       const user = await account.get()
       set({
-        user: filterUserInfo(user),
+        user,
         status: "authenticated"
       })
     } catch (error) {
@@ -137,14 +138,14 @@ export const useUserStore = create<UserState>((set, get) => ({
     } catch (error) {
       throw new Error("更新用户偏好失败: " + (error as Error).message)
     }
+  },
+
+  fetchTeams: async () => {
+    try {
+      const response = await teams.list()
+      set({ teams: response.teams })
+    } catch (error) {
+      set({ error: error as Error })
+    }
   }
 }))
-
-const filterUserInfo = (user: UserInfo) => {
-  return {
-    $id: user.$id,
-    name: user.name,
-    email: user.email,
-    prefs: user.prefs
-  }
-}
