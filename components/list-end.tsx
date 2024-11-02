@@ -1,12 +1,33 @@
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
 import { Loader } from "./loader"
 
 interface ListEndProps {
   className?: string
+  isLoading?: boolean
+  hasMore?: boolean
 }
 
-export const ListEnd = ({ className }: ListEndProps) => {
+export const ListEnd = ({ className, isLoading, hasMore }: ListEndProps) => {
+  // 加载中状态
+  if (isLoading) {
+    return (
+      <div className={cn(
+        "w-full py-8 flex items-center justify-center gap-x-2",
+        "text-sm text-muted-foreground",
+        className
+      )}>
+        <Loader size="sm" />
+        <span>加载中...</span>
+      </div>
+    )
+  }
+
+  // 还有更多数据
+  if (hasMore) {
+    return null
+  }
+
+  // 加载完毕状态
   return (
     <div className={cn(
       "w-full py-8 flex items-center justify-center gap-x-2",
@@ -21,7 +42,27 @@ export const ListEnd = ({ className }: ListEndProps) => {
 }
 
 // 可选的其他样式变体
-export const ListEndAlt = ({ className }: ListEndProps) => {
+export const ListEndAlt = ({ className, isLoading, hasMore }: ListEndProps) => {
+  // 加载中状态
+  if (isLoading) {
+    return (
+      <div className={cn(
+        "w-full py-8 flex items-center justify-center gap-x-2",
+        "text-sm text-muted-foreground",
+        className
+      )}>
+        <Loader size="sm" />
+        <span>加载中...</span>
+      </div>
+    )
+  }
+
+  // 还有更多数据
+  if (hasMore) {
+    return null
+  }
+
+  // 加载完毕状态
   return (
     <div className={cn(
       "w-full py-8 flex flex-col items-center gap-y-2",
@@ -32,46 +73,6 @@ export const ListEndAlt = ({ className }: ListEndProps) => {
         🐱
       </div>
       <p>喵~ 这里已经是底部啦</p>
-    </div>
-  )
-}
-
-// 带有加载更多功能的变体
-interface ListEndWithLoadMoreProps extends ListEndProps {
-  hasMore: boolean
-  isLoading?: boolean
-  onLoadMore: () => void
-}
-
-export const ListEndWithLoadMore = ({ 
-  className,
-  hasMore,
-  isLoading,
-  onLoadMore 
-}: ListEndWithLoadMoreProps) => {
-  if (!hasMore) {
-    return <ListEnd className={className} />
-  }
-
-  return (
-    <div className={cn(
-      "w-full py-8 flex items-center justify-center",
-      className
-    )}>
-      <Button
-        variant="ghost"
-        disabled={isLoading}
-        onClick={onLoadMore}
-      >
-        {isLoading ? (
-          <>
-            <Loader size="sm" className="mr-2" />
-            加载中...
-          </>
-        ) : (
-          "加载更多"
-        )}
-      </Button>
     </div>
   )
 } 

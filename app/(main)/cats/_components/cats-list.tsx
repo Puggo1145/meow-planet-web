@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from 'react'
+import Link from 'next/link'
 // components
 import {
     CatCard,
@@ -9,25 +9,16 @@ import {
     CatCardInfoName,
     CatCardInfoLikes
 } from '../../_components/cat-card'
-import { ListEnd } from "@/components/list-end"
-// utils
-import Link from 'next/link'
-// services
-import { getCats } from "@/services/cats"
 // types
 import type { CatDocument } from "@/types/cats"
 
-export const CatsList = () => {
-    const [cats, setCats] = useState<CatDocument[]>([])
+interface CatsListProps {
+    cats: CatDocument[]
+    isLoading?: boolean
+    hasMore?: boolean
+}
 
-    useEffect(() => {
-        const fetchCats = async () => {
-            const cats = await getCats()
-            setCats(cats)
-        }
-
-        fetchCats()
-    }, [])
+export const CatsList = ({ cats, isLoading, hasMore }: CatsListProps) => {
     return (
         <>
             <ul className="mt-4 w-fit grid grid-cols-5 gap-4">
@@ -43,7 +34,6 @@ export const CatsList = () => {
                     </Link>
                 ))}
             </ul>
-            <ListEnd />
         </>
     )
 }

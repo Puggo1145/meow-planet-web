@@ -60,33 +60,39 @@ export const createCatImages = async (data: CreateCatImageData[]): Promise<Docum
   }
 }
 
+const CATS_PER_PAGE = 10
+
+interface GetCatsOptions {
+  cursor?: string
+  limit?: number
+}
+
 /**
  * @description 获取猫咪图鉴内的所有猫咪
  * @returns 猫咪图鉴内的所有猫咪
  */
-export const getCats = async (): Promise<Document<Cat>[]> => {
+export const getCats = async ({ cursor, limit = CATS_PER_PAGE }: GetCatsOptions = {}): Promise<{
+  cats: Document<Cat>[]
+  hasMore: boolean
+}> => {
   try {
+    const queries = [Query.limit(limit)]
+    if (cursor) {
+      queries.push(Query.cursorAfter(cursor))
+    }
+
     const response = await databases.listDocuments(
       DATABASES_IDS.MAIN,
-      DATABASES_IDS.COLLECTIONS.CATS
+      DATABASES_IDS.COLLECTIONS.CATS,
+      queries
     )
 
-    return response.documents as Document<Cat>[]
+    return {
+      cats: response.documents as Document<Cat>[],
+      hasMore: response.documents.length === limit
+    }
   } catch (error) {
     throw new Error("获取猫咪图鉴失败: " + (error as Error).message)
-  }
-}
-
-/**
- * @description 获取猫咪图鉴内的猫咪数量
- * @returns 猫咪图鉴内的猫咪数量
- */
-export const getCatsNumber = async (): Promise<number> => {
-  try {
-    const response = await databases.listDocuments(DATABASES_IDS.MAIN, DATABASES_IDS.COLLECTIONS.CATS)
-    return response.total
-  } catch (error) {
-    throw new Error("获取猫咪图鉴数量失败: " + (error as Error).message)
   }
 }
 
