@@ -51,12 +51,11 @@ const SignInForm = () => {
             await account.createEmailPasswordSession(values.email, values.password)
             
             // 获取并存储用户信息
-            const user = await account.get()
-            useUserStore.getState().setUser(user)
+            useUserStore.getState().initialize()
             
             toast.success("登录成功")
             router.push("/today")
-        } catch (err) {
+        } catch {
             toast.error("用户名或密码错误");
         } finally {
             setIsSubmitting(false)

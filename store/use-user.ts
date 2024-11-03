@@ -13,7 +13,6 @@ interface UserState {
   error: Error | null
 
   initialize: () => Promise<void>
-  fetchUser: () => Promise<void>
   fetchTeams: () => Promise<void>
   setUser: (user: Models.User<Models.Preferences> | null) => void
   logout: () => Promise<void>
@@ -44,26 +43,6 @@ export const useUserStore = create<UserState>((set, get) => ({
       set({
         user: null,
         teams: null,
-        status: "unauthenticated",
-        error: error as Error
-      })
-    }
-  },
-
-  /**
-   * @description 获取用户信息，通常用于登录和注册认证后
-   */
-  fetchUser: async () => {
-    try {
-      set({ status: "loading", error: null })
-      const user = await account.get()
-      set({
-        user,
-        status: "authenticated"
-      })
-    } catch (error) {
-      set({
-        user: null,
         status: "unauthenticated",
         error: error as Error
       })

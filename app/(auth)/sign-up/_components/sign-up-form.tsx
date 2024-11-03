@@ -69,6 +69,7 @@ const SignUpForm = () => {
             )
             await account.createEmailPasswordSession(values.email, values.password)
             useUserStore.getState().initialize()
+
             toast.success("注册成功，欢迎加入猫猫星球！")
             router.push("/today")
         } catch {
