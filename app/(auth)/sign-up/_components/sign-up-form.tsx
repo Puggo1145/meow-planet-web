@@ -45,7 +45,6 @@ const formSchema = z.object({
 
 const SignUpForm = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const router = useRouter()
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -68,10 +67,9 @@ const SignUpForm = () => {
                 values.username
             )
             await account.createEmailPasswordSession(values.email, values.password)
-            useUserStore.getState().initialize()
+            await useUserStore.getState().initialize()
 
             toast.success("注册成功，欢迎加入猫猫星球！")
-            router.push("/today")
         } catch {
             toast.error("注册失败，请稍后重试");
         } finally {

@@ -32,8 +32,6 @@ export const useUserStore = create<UserState>((set, get) => ({
       const user = await account.get()
       const teamsResponse = await teams.list()
 
-      console.log(teamsResponse.teams);
-
       set({
         user,
         teams: teamsResponse.teams,
@@ -50,6 +48,7 @@ export const useUserStore = create<UserState>((set, get) => ({
   logout: async () => {
     try {
       await account.deleteSession('current')
+
       set({
         user: null,
         status: "unauthenticated"

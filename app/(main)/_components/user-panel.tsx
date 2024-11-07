@@ -28,6 +28,7 @@ import {
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
+import { toast } from "sonner"
 // store
 import { useUserStore } from "@/store/use-user"
 import { useState } from "react"
@@ -116,15 +117,21 @@ const SignOutUserItem = () => {
         <DropdownMenuItem
             className="h-12 cursor-pointer"
             onClick={handleSignOut}
+            onSelect={(event) => {
+                event.preventDefault()
+            }}
         >
             {isSigningOut
-                ? <Loader size="sm" className="ml-2" />
-                : (
-                    <>
-                        <LogOut />
-                        <span>退出登录</span>
-                    </>
-                )
+                ?
+                <>
+                    <Loader size="sm" className="mr-2" />
+                    <span className="text-muted-foreground">退出登录中...</span>
+                </>
+                :
+                <>
+                    <LogOut />
+                    <span>退出登录</span>
+                </>
             }
         </DropdownMenuItem>
     )

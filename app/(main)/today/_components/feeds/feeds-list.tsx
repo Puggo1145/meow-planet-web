@@ -6,7 +6,7 @@ import {
     CatCardImage,
     CatCardInfo,
     CatCardInfoName,
-    CatCardInfoLikes,
+    CatCardInfoLoveCount,
     CatCardImageUpdates,
 } from "@/app/(main)/_components/cat-card"
 import {
@@ -26,7 +26,7 @@ const FeedsList = () => {
                         <CatCardImage src={cat.image.src} />
                         <CatCardInfo>
                             <CatCardInfoName>{cat.name}</CatCardInfoName>
-                            <CatCardInfoLikes likes={cat.likes} />
+                            <CatCardInfoLoveCount loveCount={cat.lovedCount} />
                             <CatCardImageUpdates>
                                 {`最近新增 ${cat.updates} 张图片`}
                             </CatCardImageUpdates>

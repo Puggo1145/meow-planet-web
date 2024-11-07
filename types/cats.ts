@@ -12,7 +12,7 @@ export interface Cat {
     disease?: string[] // 病症
     sterilization?: boolean // 是否绝育
     description?: string // 补充描述
-    lovedNumber: number // 关注数
+    lovedCount: number // 喜爱数
     likes: number // 点赞数
     createdBy: string // 创建者ID
 }

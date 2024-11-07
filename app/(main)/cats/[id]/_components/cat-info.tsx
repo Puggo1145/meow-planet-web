@@ -1,12 +1,12 @@
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-import type { CatDocument } from "@/types/cats"
+import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils"
 import { ShareCat } from "./share-cat"
-import { LikeCat } from "./like-cat"
+import { LoveCat } from "./love-cat"
 import { CatCreator } from "./cat-creator"
-
-type CatInfoProps = Pick<CatDocument, "avatarUrl" | "name" | "gender" | "age" | "description" | "$id" | "likes" | "createdBy" | "$createdAt">
+import { PawPrint, Heart, AlertCircle, Calendar } from "lucide-react"
+import type { CatDocument } from "@/types/cats"
 
 const genderMap = {
     "male": {
@@ -23,48 +23,129 @@ const genderMap = {
     }
 }
 
+type CatInfoProps = Pick<CatDocument, 
+    "$id" | 
+    "avatarUrl" | 
+    "name" | 
+    "gender" | 
+    "age" | 
+    "character" |
+    "notice" |
+    "disease" |
+    "sterilization" |
+    "description" | 
+    "lovedCount" | 
+    "likes" |
+    "createdBy" | 
+    "$createdAt"
+>
+
 export const CatInfo = ({ 
     $id,
     avatarUrl, 
     name, 
     gender, 
     age, 
+    character,
+    notice,
+    disease,
+    sterilization,
     description,
-    likes,
+    lovedCount,
+    // likes,
     createdBy,
     $createdAt
 }: CatInfoProps) => {
     return (
-        <div className="space-y-6">
+        <div className="space-y-8">
+            {/* 基本信息 */}
             <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                        <Avatar>
+                    <div className="flex items-center gap-4">
+                        <Avatar className="size-16 border-4 border-muted">
                             <AvatarImage src={avatarUrl ?? ""} />
-                            <AvatarFallback>{name}</AvatarFallback>
+                            <AvatarFallback>{name[0]}</AvatarFallback>
                         </Avatar>
-                        <h1 className="text-3xl font-bold">{name}</h1>
+                        <div>
+                            <h1 className="text-3xl font-bold">{name}</h1>
+                            <div className="flex items-center gap-2 mt-1">
+                                <Badge variant="secondary" className={cn(genderMap[gender].color, "text-white")}>
+                                    {genderMap[gender].alias}
+                                </Badge>
+                                {sterilization && (
+                                    <Badge variant="outline">已绝育</Badge>
+                                )}
+                            </div>
+                        </div>
                     </div>
                     <div className="flex gap-2">
                         <ShareCat />
-                        <LikeCat catId={$id} initialLikes={likes} />
+                        <LoveCat catId={$id} initialLoveCount={lovedCount} />
                     </div>
                 </div>
 
-                <section className="flex items-center gap-3">
-                    <Badge variant="secondary" className={cn(genderMap[gender].color, "text-white")}>
-                        {genderMap[gender].alias}
-                    </Badge>
-                    <Badge variant="secondary">
-                        {age} 岁
-                    </Badge>
-                </section>
+                {description && (
+                    <p className="text-muted-foreground leading-relaxed">
+                        {description}
+                    </p>
+                )}
+            </div>
 
-                <p className="text-muted-foreground leading-relaxed">
-                    {description}
+            <Separator />
+
+            {/* 年龄信息 */}
+            <div className="space-y-2">
+                <div className="flex items-center gap-2 text-lg font-medium">
+                    <Calendar className="size-5" />
+                    <h2>年龄</h2>
+                </div>
+                <p className="text-muted-foreground">
+                    {age} 岁
                 </p>
             </div>
 
+            {/* 性格特征 */}
+            {character && (
+                <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-lg font-medium">
+                        <PawPrint className="size-5" />
+                        <h2>性格特征</h2>
+                    </div>
+                    <p className="text-muted-foreground">{character}</p>
+                </div>
+            )}
+
+            {/* 撸猫注意事项 */}
+            {notice && (
+                <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-lg font-medium">
+                        <AlertCircle className="size-5" />
+                        <h2>撸猫注意事项</h2>
+                    </div>
+                    <p className="text-muted-foreground">{notice}</p>
+                </div>
+            )}
+
+            {/* 病症 */}
+            {disease && disease.length > 0 && (
+                <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-lg font-medium">
+                        <Heart className="size-5" />
+                        <h2>病症</h2>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                        {disease.map((item, index) => (
+                            <Badge key={index} variant="secondary">
+                                {item}
+                            </Badge>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            <Separator />
+
+            {/* 创建者信息 */}
             <CatCreator userId={createdBy} $createdAt={$createdAt} />
         </div>
     )

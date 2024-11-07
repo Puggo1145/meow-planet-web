@@ -33,7 +33,6 @@ const formSchema = z.object({
 })
 
 const SignInForm = () => {
-    const router = useRouter()
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -51,10 +50,9 @@ const SignInForm = () => {
             await account.createEmailPasswordSession(values.email, values.password)
             
             // 获取并存储用户信息
-            useUserStore.getState().initialize()
+            await useUserStore.getState().initialize()
             
             toast.success("登录成功")
-            router.push("/today")
         } catch {
             toast.error("用户名或密码错误");
         } finally {

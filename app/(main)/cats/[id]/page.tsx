@@ -36,14 +36,19 @@ const CatDetailPage = ({ params }: { params: { id: string } }) => {
                         <>
                             <CatImageGallery id={params.id} />
                             <CatInfo
-                                $id={cat?.$id}
-                                avatarUrl={cat?.avatarUrl}
-                                name={cat?.name}
-                                gender={cat?.gender}
-                                age={cat?.age}
-                                description={cat?.description}
-                                likes={cat?.likes}
-                                createdBy={cat?.createdBy}
+                                $id={cat.$id}
+                                avatarUrl={cat.avatarUrl}
+                                name={cat.name}
+                                gender={cat.gender}
+                                age={cat.age}
+                                description={cat.description}
+                                lovedCount={cat.lovedCount}
+                                character={cat.character}
+                                notice={cat.notice}
+                                disease={cat.disease}
+                                sterilization={cat.sterilization}
+                                createdBy={cat.createdBy}
+                                likes={cat.likes}
                                 $createdAt={cat?.$createdAt}
                             />
                         </>

@@ -49,11 +49,11 @@ export const CatCardInfoName = ({ children }: { children: React.ReactNode }) => 
     )
 }
 
-export const CatCardInfoLikes = ({ likes }: { likes: number }) => {
+export const CatCardInfoLoveCount = ({ loveCount }: { loveCount: number }) => {
     return (
         <span className='text-sm text-gray-500 flex items-center gap-x-1'>
             <HeartIcon className='size-4' />
-            {likes}
+            {loveCount}
         </span>
     )
 }

@@ -7,7 +7,7 @@ import {
     CatCardImage,
     CatCardInfo,
     CatCardInfoName,
-    CatCardInfoLikes
+    CatCardInfoLoveCount
 } from '../../_components/cat-card'
 import { EmptyStatus } from '@/components/status/empty-status'
 // types
@@ -31,7 +31,7 @@ export const CatsList = ({ cats }: CatsListProps) => {
                             <CatCardImage src={cat.avatarUrl ?? ""} />
                             <CatCardInfo>
                                 <CatCardInfoName>{cat.name}</CatCardInfoName>
-                                <CatCardInfoLikes likes={cat.likes} />
+                                <CatCardInfoLoveCount loveCount={cat.lovedCount} />
                             </CatCardInfo>
                         </CatCard>
                     </Link>
