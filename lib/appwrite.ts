@@ -7,7 +7,7 @@ import {
 } from 'appwrite';
 
 const client = new Client()
-    .setEndpoint('http://localhost:8000/v1')
+    .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!)
     .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID!);
 
 // 创建单例实例

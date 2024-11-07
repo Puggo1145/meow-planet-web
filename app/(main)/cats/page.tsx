@@ -28,11 +28,11 @@ const CatsPage = () => {
     const loadCats = async (cursor?: string) => {
         try {
             setIsLoading(true)
-            const { cats: newCats, hasMore: more } = await getCats({ 
+            const { cats: newCats, hasMore: more } = await getCats({
                 cursor,
-                keyword 
+                keyword
             })
-            
+
             if (cursor) {
                 setCats(prev => [...prev, ...newCats])
             } else {
@@ -70,10 +70,10 @@ const CatsPage = () => {
             <CatsSearch onSearch={handleSearch} isSearching={isLoading} />
             <ScrollArea className="flex-1">
                 <CatsMaintainers />
-                <CatsList cats={cats} />
+                {!isLoading && <CatsList cats={cats} />}
                 <ListEnd isLoading={isLoading} hasMore={hasMore} />
-                <div 
-                    ref={loadMoreRef} 
+                <div
+                    ref={loadMoreRef}
                     className="h-4 w-full"
                 />
                 <ScrollBar orientation="horizontal" />

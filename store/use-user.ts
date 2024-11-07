@@ -9,22 +9,20 @@ export type AuthStatus = "loading" | "authenticated" | "unauthenticated"
 interface UserState {
   user: Models.User<Models.Preferences> | null
   status: AuthStatus
-  teams: Models.Team<Models.Preferences>[] | null
-  error: Error | null
+  teams: Models.Team<Models.Preferences>[]
 
   initialize: () => Promise<void>
   fetchTeams: () => Promise<void>
-  setUser: (user: Models.User<Models.Preferences> | null) => void
   logout: () => Promise<void>
   updateAvatar: (file: File) => Promise<void>
   updateUserPrefs: (prefs: Partial<Models.Preferences>) => Promise<void>
+  resetUserInfo: () => void
 }
 
 export const useUserStore = create<UserState>((set, get) => ({
   user: null,
-  teams: null,
+  teams: [],
   status: "loading",
-  error: null,
 
   /**
    * @description 在应用初始化时获取用户信息
@@ -33,29 +31,18 @@ export const useUserStore = create<UserState>((set, get) => ({
     try {
       const user = await account.get()
       const teamsResponse = await teams.list()
-      
+
+      console.log(teamsResponse.teams);
+
       set({
         user,
         teams: teamsResponse.teams,
         status: "authenticated"
       })
     } catch (error) {
-      set({
-        user: null,
-        teams: null,
-        status: "unauthenticated",
-        error: error as Error
-      })
+      get().resetUserInfo()
     }
   },
-
-  /**
-   * @description 设置用户信息
-   */
-  setUser: (user) => set({
-    user,
-    status: user ? "authenticated" : "unauthenticated"
-  }),
 
   /**
    * @description 登出用户
@@ -68,7 +55,7 @@ export const useUserStore = create<UserState>((set, get) => ({
         status: "unauthenticated"
       })
     } catch (error) {
-      set({ error: error as Error })
+      get().resetUserInfo()
     }
   },
 
@@ -119,12 +106,17 @@ export const useUserStore = create<UserState>((set, get) => ({
     }
   },
 
+  /**
+   * @description 获取用户团队
+   */
   fetchTeams: async () => {
-    try {
-      const response = await teams.list()
-      set({ teams: response.teams })
-    } catch (error) {
-      set({ error: error as Error })
-    }
-  }
+    const response = await teams.list()
+    set({ teams: response.teams })
+  },
+
+  resetUserInfo: () => set({
+    user: null,
+    teams: [],
+    status: "unauthenticated",
+  })
 }))

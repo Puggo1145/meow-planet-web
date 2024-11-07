@@ -16,15 +16,7 @@ export const createCat = async (data: CreateCatData): Promise<Document<Cat>> => 
       DATABASES_IDS.MAIN,
       DATABASES_IDS.COLLECTIONS.CATS,
       ID.unique(),
-      {
-        name: data.name,
-        gender: data.gender,
-        age: data.age,
-        description: data.description,
-        avatarUrl: data.avatarUrl,
-        likes: 0,
-        createdBy: data.createdBy,
-      }
+      data
     )
 
     return response as Document<Cat>

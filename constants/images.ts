@@ -6,16 +6,30 @@ import mockCat3 from '@/assets/images/mock-cat-3.jpg';
 // auth
 import authIllustration1 from '@/assets/images/auth/auth-illustration1.png'
 import authIllustration2 from '@/assets/images/auth/auth-illustration2.png'
-import unauthorized from '@/assets/images/auth/unauthorized.png'
+// badges
+import adminBadge from '@/assets/images/badges/admin-badge.png'
+import catMaintainerBadge from '@/assets/images/badges/cat-maintainer-badge.png'
+// status
+import emptyStatus from '@/assets/images/status/empty.png'
+import wentWrongStatus from '@/assets/images/status/went-wrong.png'
 
 const images = {
     landingLogo,
     mockCat1,
     mockCat2,
     mockCat3,
-    authIllustration1,
-    authIllustration2,
-    unauthorized,
+    auth: {
+        authIllustration1,
+        authIllustration2,
+    },
+    badges: {
+        adminBadge,
+        catMaintainerBadge,
+    },
+    status: {
+        emptyStatus,
+        wentWrongStatus,
+    },
 };
 
 export default images;

@@ -12,11 +12,13 @@ import { ComponentProps } from "react"
 interface PageHeaderProps extends ComponentProps<"header"> {
     title: string
     useBackButton?: boolean
+    backHref?: string
 }
 
 export const PageHeader = ({
     title,
     useBackButton = false,
+    backHref,
     ...props
 }: PageHeaderProps) => {
     const router = useRouter()
@@ -29,7 +31,7 @@ export const PageHeader = ({
                 <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => router.back()}
+                    onClick={() => backHref ? router.push(backHref) : router.back()}
                 >
                     <ArrowLeft className="size-5" />
                 </Button>

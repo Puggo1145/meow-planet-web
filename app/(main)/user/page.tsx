@@ -1,10 +1,17 @@
 // components
-import { User } from './_components/user'
+import { UserInfo } from './_components/user-info'
+import { UserBadges } from './_components/user-badges'
+import { UserInvite } from './_components/user-invite'
+import { Separator } from '@/components/ui/separator'
 
 const UserPage = () => {
   return (
-    <div className='flex-1 flex flex-col gap-y-4 px-4 pt-[120px]'>
-      <User />
+    <div className='flex-1 flex flex-col pt-24 pl-4'>
+      <UserInfo />
+      <Separator className='mt-20 mb-8'/>
+      <UserBadges />
+      <Separator className='mt-20 mb-8'/>
+      <UserInvite />
     </div>
   )
 }

@@ -1,6 +1,5 @@
 "use client"
 
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 // components
 import { UploadAvatar } from "@/components/upload-avatar"
@@ -9,7 +8,7 @@ import { Pencil } from "lucide-react"
 // store
 import { useUserStore } from "@/store/use-user"
 
-export const User = () => {
+export const UserInfo = () => {
     const { user } = useUserStore();
 
     return (
@@ -17,12 +16,9 @@ export const User = () => {
             <div className="flex items-center gap-x-6">
                 <UploadAvatar size="lg" />
                 <div className="flex flex-col gap-y-1">
-                    <div className="flex items-center gap-x-2">
-                        <p className="text-xl font-bold">
-                            {user?.name}
-                        </p>
-                        <Badge>用户角色</Badge>
-                    </div>
+                    <p className="text-xl font-bold">
+                        {user?.name}
+                    </p>
                     <p className="text-sm text-gray-500">
                         {user?.email}
                     </p>

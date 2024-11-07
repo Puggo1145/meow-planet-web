@@ -8,7 +8,7 @@ export default function UnauthorizedPage() {
     <div className="h-screen w-screen flex flex-col items-center justify-center gap-y-4 px-4">
       <div className="relative size-[256px] flex items-center justify-center">
         <Image
-          src={images.unauthorized}
+          src={images.status.wentWrongStatus}
           alt="Unauthorized"
           width={192}
           height={192}

@@ -26,6 +26,8 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
+import { Switch } from "@/components/ui/switch"
+import { TagInput } from "@/components/tag-input"
 // components
 import { Loader } from "@/components/loader"
 // icons
@@ -45,18 +47,20 @@ import type { CreateCatData, CreateCatImageData } from "@/types/cats"
 import { useUserStore } from "@/store/use-user"
 
 const formSchema = z.object({
-    name: z.string().min(1, {
-        message: "猫咪名字不能为空",
-    }),
+    name: z.string()
+        .min(1, { message: "猫咪名字不能为空" })
+        .max(16, { message: "猫咪名字不能超过16个字符" }),
     gender: z.enum(["male", "female", "unknown"], {
         required_error: "请选择猫咪性别",
     }),
     age: z.number().refine(age => age === undefined || age > 0, {
         message: "年龄必须大于0",
     }),
-    description: z.string().min(1, {
-        message: "描述不能为空",
-    }),
+    character: z.string().max(512, { message: "性格特点不能超过512个字符" }).optional(),
+    notice: z.string().max(512, { message: "注意事项不能超过512个字符" }).optional(),
+    disease: z.array(z.string()).default([]),
+    sterilization: z.boolean().optional(),
+    description: z.string().max(1024, { message: "描述不能超过1024个字符" }).optional(),
 })
 
 interface AvatarPreviewProps {
@@ -130,17 +134,15 @@ const CatUploadPage = () => {
             name: "",
             gender: "unknown",
             age: undefined,
+            character: "",
+            notice: "",
+            disease: [],
+            sterilization: false,
             description: "",
         },
     })
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        if (!user) {
-            toast.error("请先登录")
-            router.push("/sign-in")
-            return
-        }
-
         if (images.length === 0) {
             toast.error("请至少上传一张图片")
             return
@@ -156,21 +158,21 @@ const CatUploadPage = () => {
             const createCatData: CreateCatData = {
                 ...values,
                 avatarUrl: uploadedFiles[avatarIndex].url,
-                createdBy: user.$id,
+                createdBy: user!.$id,
             }
 
-            const cat = await createCat(createCatData)
+            const { $id: catId } = await createCat(createCatData)
 
             // 3. 创建猫咪图片记录
             const createImagesData: CreateCatImageData[] = uploadedFiles.map((file) => ({
                 url: file.url,
-                catId: cat.$id,
+                catId
             }))
 
             await createCatImages(createImagesData)
 
             toast.success("创建成功！")
-            router.push("/cats")
+            router.replace(`/cats/${catId}`)
         } catch (err) {
             if (err instanceof Error && !isUploading) {
                 toast.error(`创建失败: ${err.message}`)
@@ -182,7 +184,7 @@ const CatUploadPage = () => {
 
     return (
         <div className="w-full max-w-3xl mx-auto pb-16">
-            <AvatarPreview 
+            <AvatarPreview
                 avatar={images[avatarIndex]}
                 onImageSelect={handleImageSelect}
             />
@@ -197,7 +199,7 @@ const CatUploadPage = () => {
                             name="name"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>名字</FormLabel>
+                                    <FormLabel>名字*</FormLabel>
                                     <FormControl>
                                         <Input placeholder="给这只猫咪起个名字吧" {...field} />
                                     </FormControl>
@@ -211,7 +213,7 @@ const CatUploadPage = () => {
                                 name="gender"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>性别</FormLabel>
+                                        <FormLabel>性别*</FormLabel>
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                                             <FormControl>
                                                 <SelectTrigger>
@@ -233,7 +235,7 @@ const CatUploadPage = () => {
                                 name="age"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>年龄</FormLabel>
+                                        <FormLabel>年龄*</FormLabel>
                                         <FormControl>
                                             <Input
                                                 type="number"
@@ -255,7 +257,7 @@ const CatUploadPage = () => {
                                     <FormLabel>描述</FormLabel>
                                     <FormControl>
                                         <Textarea
-                                            placeholder="介绍一下这只猫咪吧..."
+                                            placeholder="介绍一下这只猫咪"
                                             className="resize-none"
                                             {...field}
                                         />
@@ -266,10 +268,85 @@ const CatUploadPage = () => {
                         />
                     </div>
 
+                    {/* 性格特点 */}
+                    <FormField
+                        control={form.control}
+                        name="character"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>性格特点</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        placeholder="描述一下猫咪的性格"
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    {/* 撸猫注意事项 */}
+                    <FormField
+                        control={form.control}
+                        name="notice"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>撸猫注意事项</FormLabel>
+                                <FormControl>
+                                    <Textarea
+                                        placeholder="告诉同学们撸猫时有什么需要注意的事情"
+                                        className="resize-none"
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    {/* 病症标签 */}
+                    <FormField
+                        control={form.control}
+                        name="disease"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>病症</FormLabel>
+                                <FormControl>
+                                    <TagInput
+                                        value={field.value}
+                                        onChange={field.onChange}
+                                        placeholder="输入病症后按回车添加"
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    {/* 是否绝育 */}
+                    <FormField
+                        control={form.control}
+                        name="sterilization"
+                        render={({ field }) => (
+                            <FormItem className="flex items-center gap-x-2">
+                                <FormControl>
+                                    <Switch
+                                        checked={field.value}
+                                        onCheckedChange={field.onChange}
+                                    />
+                                </FormControl>
+                                <FormLabel className="!mt-0">已绝育</FormLabel>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+
                     {/* 图片上传 */}
                     <div className="space-y-4">
                         <div className="flex flex-col">
-                            <h2 className="text-lg font-semibold">上传图片</h2>
+                            <h2 className="text-lg font-semibold">上传图片到猫咪相册</h2>
                             {images.length > 0 && (
                                 <p className="text-sm text-muted-foreground">
                                     从下面图片中选择一张作为猫咪头像（默认为第一张）

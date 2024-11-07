@@ -16,7 +16,7 @@ const AuthHeader: React.FC = () => {
                     让美好发生
                 </h1>
                 <Image
-                    src={images.authIllustration1}
+                    src={images.auth.authIllustration1}
                     alt="illustration"
                     width={640}
                     height={640}

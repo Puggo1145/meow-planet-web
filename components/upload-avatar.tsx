@@ -52,24 +52,31 @@ export const UploadAvatar = ({ size = "sm" }: UploadAvatarProps) => {
     return (
         <div
             className="relative cursor-pointer group"
-            onClick={() => fileInputRef.current?.click()}
+            onClick={() => !isUploading && fileInputRef.current?.click()}
         >
-            <Avatar className={avatarSize}>
+            <Avatar className={cn(
+                avatarSize,
+                isUploading && "opacity-50"
+            )}>
                 <AvatarImage src={user?.prefs?.avatarUrl} />
                 <AvatarFallback>{user?.name?.[0]}</AvatarFallback>
             </Avatar>
 
-            {/* 遮罩层和相机图标 */}
+            {/* 遮罩层和图标 */}
             <div className={cn(
                 "absolute inset-0 rounded-full",
                 "flex items-center justify-center",
-                "bg-black/20 opacity-0 group-hover:opacity-100",
+                isUploading 
+                    ? "bg-black/20" 
+                    : "bg-black/20 opacity-0 group-hover:opacity-100",
                 "transition-opacity duration-200"
             )}>
-                {isUploading
-                    ? <Loader size="sm" className="text-white" />
-                    : <Camera className={cn(cameraSize, 'text-white')} />
-                }
+                {isUploading && (
+                    <Loader className="text-white" />
+                )}
+                {!isUploading && (
+                    <Camera className={cn(cameraSize, 'text-white')} />
+                )}
             </div>
 
             <input
@@ -78,6 +85,7 @@ export const UploadAvatar = ({ size = "sm" }: UploadAvatarProps) => {
                 accept="image/*"
                 className="hidden"
                 onChange={handleFileChange}
+                disabled={isUploading}
             />
         </div>
     )

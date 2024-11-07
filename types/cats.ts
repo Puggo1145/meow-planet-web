@@ -3,13 +3,18 @@ import type { Document } from "@/types/common"
 export type Gender = "male" | "female" | "unknown"
 
 export interface Cat {
-    name: string
-    gender: Gender
-    age?: number
-    description: string
-    avatarUrl: string | null
-    likes: number
-    createdBy: string
+    name: string // 名字
+    avatarUrl: string | null // 头像
+    gender: Gender // 性别
+    age?: number// 年龄
+    character?: string // 性格
+    notice?: string // 撸猫注意事项
+    disease?: string[] // 病症
+    sterilization?: boolean // 是否绝育
+    description?: string // 补充描述
+    lovedNumber: number // 关注数
+    likes: number // 点赞数
+    createdBy: string // 创建者ID
 }
 export type CatDocument = Document<Cat>
 
@@ -18,7 +23,11 @@ export interface CreateCatData {
     name: string
     gender: Gender
     age?: number
-    description: string
+    character?: string
+    notice?: string
+    disease?: string[]
+    sterilization?: boolean
+    description?: string
     avatarUrl: string
     createdBy: string
 }

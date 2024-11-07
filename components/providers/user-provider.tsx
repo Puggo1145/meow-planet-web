@@ -17,7 +17,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         }
 
         // Handle user redirect
-        if (status === "unauthenticated") {
+        if (status === "unauthenticated" && !["/sign-in", "/sign-up"].includes(pathname)) {
             router.replace("/sign-in")
             return
         } else if (status === "authenticated") {

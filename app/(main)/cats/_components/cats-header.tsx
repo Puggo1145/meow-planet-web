@@ -22,8 +22,8 @@ export const CatsHeader = () => {
         <header className="w-full flex items-center justify-between gap-x-6 py-4">
             <div className="flex flex-col gap-y-1">
                 <h1 className="text-2xl font-bold">图鉴</h1>
-                {catsCount 
-                ? 
+                {catsCount !== undefined
+                    ?
                     <span className="text-sm text-muted-foreground">
                         已收录 {catsCount} 只猫咪
                     </span>
