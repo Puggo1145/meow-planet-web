@@ -22,6 +22,8 @@ import { Navigation } from 'swiper/modules'
 import type { Swiper as SwiperType } from 'swiper'
 import type { CatImageDocument } from "@/types/cats"
 
+import "swiper/css"
+
 interface CatImageGalleryProps {
     id: string
 }
@@ -90,6 +92,7 @@ const CatImageDisplay = ({
     // 当 selectedImageIndex 改变时，手动切换幻灯片
     useEffect(() => {
         if (swiperRef.current && swiperRef.current.activeIndex !== selectedImageIndex) {
+            console.log("selectedImageIndex", selectedImageIndex)
             swiperRef.current.slideTo(selectedImageIndex)
         }
     }, [selectedImageIndex])
@@ -142,23 +145,12 @@ const ImagePreviewGallery = ({
     catId,
     fetchCatImages
 }: ImagePreviewGalleryProps) => {
-    const selectedImageRef = useRef<HTMLDivElement>(null)
-
-    useEffect(() => {
-        selectedImageRef.current?.scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest',
-            inline: 'center'
-        })
-    }, [selectedImageIndex])
-
     return (
         <ScrollArea className="w-full">
             <div className="flex gap-2 pb-4">
                 <UploadCatImagesModal catId={catId} onUploadSuccess={fetchCatImages} />
                 {images.map((image, index) => (
                     <div
-                        ref={selectedImageIndex === index ? selectedImageRef : null}
                         key={image.$id}
                         className={cn(
                             "shrink-0 overflow-hidden cursor-pointer size-24 rounded-lg hover:opacity-80",

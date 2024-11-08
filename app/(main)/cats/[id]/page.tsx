@@ -7,6 +7,7 @@ import { CatInfo } from "./_components/cat-info"
 import { CatImageGallerySkeleton } from "./_components/skeletons/cat-image-gallery-skeleton"
 import { CatInfoSkeleton } from "./_components/skeletons/cat-info-skeleton"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { CatPhotoTimeline } from "./_components/cat-photo-timeline"
 // utils
 import { toast } from "sonner"
 // services
@@ -32,7 +33,7 @@ const CatDetailPage = ({ params }: { params: { id: string } }) => {
     return (
         <div className="w-full h-full flex flex-col">
             <ScrollArea className="flex-1">
-                <div className="mt-4 grid grid-cols-3 gap-8 pr-4 pb-8">
+                <div className="mt-4 grid grid-cols-3 gap-8 pr-4">
                     {cat === null
                         ?
                         <>
@@ -46,6 +47,8 @@ const CatDetailPage = ({ params }: { params: { id: string } }) => {
                         </>
                     }
                 </div>
+                {cat && <CatPhotoTimeline catId={params.id} />}
+                <div className="pb-8" />
             </ScrollArea>
         </div>
     )
