@@ -1,7 +1,7 @@
 // components
 import Image from 'next/image'
 // icon
-import { HeartIcon, ImageOffIcon } from 'lucide-react'
+import { HeartIcon, ImageOffIcon, ThumbsUpIcon } from 'lucide-react'
 
 export const CatCard = ({ children }: { children: React.ReactNode }) => {
     return (
@@ -49,11 +49,28 @@ export const CatCardInfoName = ({ children }: { children: React.ReactNode }) => 
     )
 }
 
+export const CatCardInfoNumbers = ({ children }: { children: React.ReactNode }) => {
+    return (
+        <div className='text-sm text-foreground font-bold flex items-center gap-x-3'>
+            {children}
+        </div>
+    )
+}
+
 export const CatCardInfoLoveCount = ({ loveCount }: { loveCount: number }) => {
     return (
         <span className='text-sm text-gray-500 flex items-center gap-x-1'>
             <HeartIcon className='size-4' />
             {loveCount}
+        </span>
+    )
+}
+
+export const CatCardInfoLikeCount = ({ likeCount }: { likeCount: number }) => {
+    return (
+        <span className='text-sm text-gray-500 flex items-center gap-x-1'>
+            <ThumbsUpIcon className='size-4' />
+            {likeCount}
         </span>
     )
 }

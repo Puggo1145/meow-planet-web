@@ -7,6 +7,8 @@ import { CatInfo } from "./_components/cat-info"
 import { CatImageGallerySkeleton } from "./_components/skeletons/cat-image-gallery-skeleton"
 import { CatInfoSkeleton } from "./_components/skeletons/cat-info-skeleton"
 import { ScrollArea } from "@/components/ui/scroll-area"
+// utils
+import { toast } from "sonner"
 // services
 import { getCatById } from "@/services/cats"
 // types
@@ -17,8 +19,12 @@ const CatDetailPage = ({ params }: { params: { id: string } }) => {
 
     useEffect(() => {
         const fetchCat = async () => {
-            const cat = await getCatById(params.id)
-            setCat(cat)
+            try {
+                const cat = await getCatById(params.id)
+                setCat(cat)
+            } catch (error) {
+                toast.error(`获取猫咪信息失败: ${(error as Error).message}`)
+            }
         }
         fetchCat()
     }, [params.id])
@@ -27,32 +33,18 @@ const CatDetailPage = ({ params }: { params: { id: string } }) => {
         <div className="w-full h-full flex flex-col">
             <ScrollArea className="flex-1">
                 <div className="mt-4 grid grid-cols-3 gap-8 pr-4 pb-8">
-                    {cat === null ? (
+                    {cat === null
+                        ?
                         <>
                             <CatImageGallerySkeleton />
                             <CatInfoSkeleton />
                         </>
-                    ) : (
+                        :
                         <>
                             <CatImageGallery id={params.id} />
-                            <CatInfo
-                                $id={cat.$id}
-                                avatarUrl={cat.avatarUrl}
-                                name={cat.name}
-                                gender={cat.gender}
-                                age={cat.age}
-                                description={cat.description}
-                                lovedCount={cat.lovedCount}
-                                character={cat.character}
-                                notice={cat.notice}
-                                disease={cat.disease}
-                                sterilization={cat.sterilization}
-                                createdBy={cat.createdBy}
-                                likes={cat.likes}
-                                $createdAt={cat?.$createdAt}
-                            />
+                            <CatInfo {...cat} />
                         </>
-                    )}
+                    }
                 </div>
             </ScrollArea>
         </div>

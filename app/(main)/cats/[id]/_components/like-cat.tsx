@@ -3,34 +3,34 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 // icons
-import { Heart } from "lucide-react"
+import { ThumbsUp } from "lucide-react"
 // components
 import { Button } from "@/components/ui/button"
 import { Loader } from "@/components/loader"
 // services
-import { updateCatLovedCount } from "@/services/cats"
+import { updateCatLikesCount } from "@/services/cats"
 // store
 import { useUserStore } from "@/store/use-user"
 // utils
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 
-interface LoveCatProps {
+interface LikeCatProps {
     catId: string
-    initialLoveCount: number
+    initialLikesCount: number
 }
 
-export const LoveCat = ({ catId, initialLoveCount }: LoveCatProps) => {
+export const LikeCat = ({ catId, initialLikesCount }: LikeCatProps) => {
     const { user, updateUserPrefs } = useUserStore()
     const router = useRouter()
 
-    const [lovedCount, setLovedCount] = useState(initialLoveCount)
+    const [likesCount, setLikesCount] = useState(initialLikesCount)
     const [isLoading, setIsLoading] = useState(false)
-    const [isLoved, setIsLoved] = useState(
-        user?.prefs?.lovedCats?.includes(catId) ?? false
+    const [isLiked, setIsLiked] = useState(
+        user?.prefs?.likedCats?.includes(catId) ?? false
     )
 
-    const handleLove = async () => {
+    const handleLike = async () => {
         if (!user) {
             toast.error("请先登录")
             router.push("/sign-in")
@@ -39,18 +39,18 @@ export const LoveCat = ({ catId, initialLoveCount }: LoveCatProps) => {
 
         try {
             setIsLoading(true)
-            const newLovedCount = isLoved ? lovedCount - 1 : lovedCount + 1
-            await updateCatLovedCount(catId, newLovedCount)
-            setLovedCount(newLovedCount)
+            const newLikesCount = isLiked ? likesCount - 1 : likesCount + 1
+            await updateCatLikesCount(catId, newLikesCount)
+            setLikesCount(newLikesCount)
 
             // 更新用户偏好
-            const lovedCats = user.prefs?.lovedCats ?? []
-            const updatedLovedCats = isLoved
-                ? lovedCats.filter((id: string) => id !== catId)
-                : [...lovedCats, catId]
+            const likedCats = user.prefs?.likedCats ?? []
+            const updatedLikedCats = isLiked
+                ? likedCats.filter((id: string) => id !== catId)
+                : [...likedCats, catId]
 
-            await updateUserPrefs({ lovedCats: updatedLovedCats })
-            setIsLoved(!isLoved)
+            await updateUserPrefs({ likedCats: updatedLikedCats })
+            setIsLiked(!isLiked)
         } catch (error) {
             toast.error("操作失败: " + (error as Error).message)
         } finally {
@@ -61,22 +61,22 @@ export const LoveCat = ({ catId, initialLoveCount }: LoveCatProps) => {
     return (
         <Button
             variant="ghost"
-            onClick={handleLove}
+            onClick={handleLike}
             className="flex items-center gap-x-2 rounded-full"
             disabled={isLoading}
         >
             {isLoading 
                 ? <Loader className="size-5 animate-spin" /> 
-                : <Heart className={cn(
+                : <ThumbsUp className={cn(
                     "size-5 transition-colors",
-                    isLoved ? "fill-red-500 text-red-500" : "text-foreground"
+                    isLiked ? "fill-primary text-primary" : "text-foreground"
                 )} />
             }
             <span className={cn(
                 "transition-colors",
-                isLoved ? "text-red-500" : "text-foreground"
+                isLiked ? "text-primary" : "text-foreground"
             )}>
-                {lovedCount}
+                {likesCount}
             </span>
         </Button>
     )

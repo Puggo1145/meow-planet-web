@@ -166,7 +166,8 @@ const CatUploadPage = () => {
             // 3. 创建猫咪图片记录
             const createImagesData: CreateCatImageData[] = uploadedFiles.map((file) => ({
                 url: file.url,
-                catId
+                catId,
+                createdBy: user!.$id
             }))
 
             await createCatImages(createImagesData)

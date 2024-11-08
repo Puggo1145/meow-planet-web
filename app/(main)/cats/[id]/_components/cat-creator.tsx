@@ -35,7 +35,7 @@ export const CatCreator = ({ userId, $createdAt }: CatCreatorProps) => {
     if (!creator) return <CatCreatorSkeleton />
 
     return (
-        <div className="space-y-3 pt-6 border-t">
+        <div className="space-y-3">
             <h2 className="font-semibold">创建者</h2>
             <div className="flex items-center gap-3">
                 <Avatar>

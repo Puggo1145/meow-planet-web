@@ -37,10 +37,7 @@ export const createCatImages = async (data: CreateCatImageData[]): Promise<Docum
         DATABASES_IDS.MAIN,
         DATABASES_IDS.COLLECTIONS.CAT_IMAGES,
         ID.unique(),
-        {
-          url: image.url,
-          catId: image.catId,
-        }
+        image
       )
     )
 
@@ -117,7 +114,7 @@ export const getCatById = async (id: string): Promise<Document<Cat>> => {
     
     return response as Document<Cat>
   } catch (error) {
-    throw new Error("获取猫咪失败: " + (error as Error).message)
+    throw new Error((error as Error).message)
   }
 }
 
@@ -144,6 +141,21 @@ export const getCatImages = async (id: string): Promise<Document<CatImage>[]> =>
 export const updateCatLovedCount = async (id: string, lovedCount: number): Promise<Document<Cat>> => {
   try {
     const response = await databases.updateDocument(DATABASES_IDS.MAIN, DATABASES_IDS.COLLECTIONS.CATS, id, { lovedCount })
+    return response as Document<Cat>
+  } catch (error) {
+    throw new Error("更新猫咪点赞数失败: " + (error as Error).message)
+  }
+}
+
+/**
+ * @description 更新猫咪的点赞数
+ * @param id 猫咪的ID
+ * @param likes 点赞数
+ * @returns 更新后的猫咪
+ */
+export const updateCatLikesCount = async (id: string, likes: number): Promise<Document<Cat>> => {
+  try {
+    const response = await databases.updateDocument(DATABASES_IDS.MAIN, DATABASES_IDS.COLLECTIONS.CATS, id, { likes })
     return response as Document<Cat>
   } catch (error) {
     throw new Error("更新猫咪点赞数失败: " + (error as Error).message)

@@ -36,6 +36,7 @@ export interface CreateCatData {
 export interface CatImage {
     url: string
     catId: string
+    createdBy: string
 }
 export type CatImageDocument = Document<CatImage>
 
@@ -43,4 +44,5 @@ export type CatImageDocument = Document<CatImage>
 export interface CreateCatImageData {
     url: string
     catId: string
+    createdBy: string
 }
