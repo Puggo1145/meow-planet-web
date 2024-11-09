@@ -209,3 +209,119 @@ export const updateCatLikesCount = async (id: string, likes: number): Promise<Ca
     throw new Error("更新猫咪点赞数失败: " + (error as Error).message)
   }
 }
+
+interface GetRecentCatsOptions {
+  cursor?: string;
+  limit?: number;
+  catIds?: string[];
+}
+
+export const getRecentCats = async ({ cursor, limit = 10, catIds }: GetRecentCatsOptions = {}) => {
+  try {
+    const queries = [
+      Query.orderDesc('$updatedAt'),
+      Query.limit(limit),
+      Query.select(['$id', 'name', 'likes', 'lovedCount', 'avatarUrl', '$updatedAt'])
+    ];
+
+    if (cursor) {
+      queries.push(Query.cursorAfter(cursor));
+    }
+
+    if (catIds) {
+      queries.push(Query.equal('$id', catIds));
+    }
+
+    const response = await databases.listDocuments(
+      DATABASES_IDS.MAIN,
+      DATABASES_IDS.COLLECTIONS.CATS,
+      queries
+    );
+
+    // Get recent image counts for each cat
+    const catsWithImageCounts = await Promise.all(
+      response.documents.map(async (cat) => {
+        const sevenDaysAgo = new Date();
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+        const imageResponse = await databases.listDocuments(
+          DATABASES_IDS.MAIN,
+          DATABASES_IDS.COLLECTIONS.CAT_IMAGES,
+          [
+            Query.equal('catId', cat.$id),
+            Query.greaterThan('$createdAt', sevenDaysAgo.toISOString()),
+            Query.select(['$id'])
+          ]
+        );
+
+        return {
+          ...cat as CatDocument,
+          recentImageCount: imageResponse.total
+        };
+      })
+    );
+
+    return {
+      cats: catsWithImageCounts,
+      hasMore: response.documents.length === limit,
+      lastId: response.documents[response.documents.length - 1]?.$id
+    };
+  } catch (error) {
+    throw new Error("获取最近更新猫咪失败: " + (error as Error).message);
+  }
+};
+
+export interface RankedCat {
+  $id: string;
+  name: string;
+  avatarUrl: string;
+  likes: number;
+  lovedCount: number;
+  hotValue: number;
+}
+
+export const getTopRankedCats = async (limit: number = 5): Promise<RankedCat[]> => {
+  try {
+    const response = await databases.listDocuments(
+      DATABASES_IDS.MAIN,
+      DATABASES_IDS.COLLECTIONS.CATS,
+      [
+        Query.select(['$id', 'name', 'likes', 'lovedCount', 'avatarUrl']),
+        Query.limit(limit),
+      ]
+    );
+
+    const rankedCats = response.documents.map(cat => ({
+      ...cat as CatDocument,
+      // Calculate hot value: likes count 3 point, loved counts 10 points
+      hotValue: cat.likes * 3 + (cat.lovedCount * 10)
+    }));
+
+    // Sort by hot value in descending order
+    return rankedCats.sort((a, b) => b.hotValue - a.hotValue);
+  } catch (error) {
+    throw new Error("获取排行榜失败: " + (error as Error).message);
+  }
+};
+
+export const getNewCats = async (limit: number = 5): Promise<CatDocument[]> => {
+  try {
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+    const response = await databases.listDocuments(
+      DATABASES_IDS.MAIN,
+      DATABASES_IDS.COLLECTIONS.CATS,
+      [
+        Query.select(['$id', 'name', 'avatarUrl', '$createdAt']),
+        Query.greaterThan('$createdAt', sevenDaysAgo.toISOString()),
+        Query.orderDesc('$createdAt'),
+        Query.limit(limit),
+      ]
+    );
+
+    return response.documents as CatDocument[];
+  } catch (error) {
+    throw new Error("获取新猫咪失败: " + (error as Error).message);
+  }
+};

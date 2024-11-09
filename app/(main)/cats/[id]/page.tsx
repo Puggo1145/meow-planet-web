@@ -33,21 +33,35 @@ const CatDetailPage = ({ params }: { params: { id: string } }) => {
     return (
         <div className="w-full h-full flex flex-col">
             <ScrollArea className="flex-1">
-                <div className="mt-4 grid grid-cols-3 gap-8 pr-4">
+                {/* Main content grid - responsive layout */}
+                <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8 px-4">
                     {cat === null
                         ?
                         <>
-                            <CatImageGallerySkeleton />
-                            <CatInfoSkeleton />
+                            <div className="md:col-span-1 lg:col-span-2">
+                                <CatImageGallerySkeleton />
+                            </div>
+                            <div className="md:col-span-1 lg:col-span-1">
+                                <CatInfoSkeleton />
+                            </div>
                         </>
                         :
                         <>
-                            <CatImageGallery id={params.id} />
-                            <CatInfo {...cat} />
+                            <div className="md:col-span-1 lg:col-span-2">
+                                <CatImageGallery id={params.id} />
+                            </div>
+                            <div className="md:col-span-1 lg:col-span-1">
+                                <CatInfo {...cat} />
+                            </div>
                         </>
                     }
                 </div>
-                {cat && <CatPhotoTimeline catId={params.id} />}
+                {/* Photo timeline section */}
+                {cat && (
+                    <div className="px-4">
+                        <CatPhotoTimeline catId={params.id} />
+                    </div>
+                )}
                 <div className="pb-8" />
             </ScrollArea>
         </div>

@@ -1,12 +1,14 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
+// import { Button } from "@/components/ui/button"
 // components
 import { UploadAvatar } from "@/components/upload-avatar"
 // icons
-import { Pencil } from "lucide-react"
+// import { Pencil } from "lucide-react"
 // store
 import { useUserStore } from "@/store/use-user"
+// components
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export const UserInfo = () => {
     const { user } = useUserStore();
@@ -24,9 +26,10 @@ export const UserInfo = () => {
                     </p>
                 </div>
             </div>
-            <Button variant="outline">
+            <ThemeToggle />
+            {/* <Button variant="outline">
                 <Pencil className="size-4 mr-2" />编辑
-            </Button>
+            </Button> */}
         </section>
     )
 }

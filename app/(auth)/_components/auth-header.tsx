@@ -6,7 +6,7 @@ import images from "@/constants/images"
 const AuthHeader: React.FC = () => {
     return (
         <header className="relative hidden lg:block lg:w-[480px] h-full p-4">
-            <div className="size-full bg-primary p-6 rounded-2xl">
+            <div className="size-full bg-primary dark:bg-primary/40 p-6 rounded-2xl">
                 <Image
                     src={icons.logoWhite}
                     alt="logo"

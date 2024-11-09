@@ -26,7 +26,7 @@ export const CatsList = ({ cats }: CatsListProps) => {
 
     return (
         <>
-            <ul className="mt-4 w-fit grid grid-cols-5 gap-4">
+            <ul className="mt-4 grid grid-cols-2 lg:grid-cols-5 gap-4">
                 {cats.map((cat) => (
                     <Link href={`/cats/${cat.$id}`} key={cat.$id}>
                         <CatCard>

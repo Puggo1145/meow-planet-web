@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 // components
 import Image from "next/image"
 import { Loader } from "@/components/loader"
+import { ImageUploader } from "./image-uploader"
 // icons
 import { X } from "lucide-react"
 // types
@@ -42,17 +43,25 @@ export const CatPhotoPreview = ({ image, onClose }: CatPhotoPreviewProps) => {
                     <X className="size-5 text-white" />
                 </Button>
 
-                {/* Image */}
-                {image && (
-                    <Image
-                        src={image.url}
-                        alt={`Cat photo ${image.$id}`}
-                        width={1200}
-                        height={800}
-                        onLoad={() => setIsLoading(false)}
-                        className="w-full object-contain"
-                    />
-                )}
+                <div className="relative">
+                    {/* Image */}
+                    {image && (
+                        <Image
+                            src={image.url}
+                            alt={`Cat photo ${image.$id}`}
+                            width={1200}
+                            height={800}
+                            onLoad={() => setIsLoading(false)}
+                            className="w-full object-contain"
+                        />
+                    )}
+                    {/* Uploader */}
+                    {image &&
+                        <ImageUploader
+                            userId={image.createdBy}
+                        />
+                    }
+                </div>
             </DialogContent>
         </Dialog>
     )

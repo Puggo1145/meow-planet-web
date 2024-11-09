@@ -13,8 +13,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         const handleRouteGuard = async () => {
-            console.log(status);
-            
             // 1. 初始化用户状态
             if (status === "loading") {
                 await initialize()

@@ -53,8 +53,8 @@ const formSchema = z.object({
     gender: z.enum(["male", "female", "unknown"], {
         required_error: "请选择猫咪性别",
     }),
-    age: z.number().refine(age => age === undefined || age > 0, {
-        message: "年龄必须大于0",
+    age: z.number().refine(age => age === undefined || age >= 0, {
+        message: "年龄不能小于0",
     }),
     character: z.string().max(512, { message: "性格特点不能超过512个字符" }).optional(),
     notice: z.string().max(512, { message: "注意事项不能超过512个字符" }).optional(),
@@ -393,7 +393,7 @@ const CatUploadPage = () => {
                             {images.length < 9 && (
                                 <label className={cn(
                                     "flex flex-col items-center justify-center",
-                                    "aspect-square rounded-xl border-2 border-dashed",
+                                    "aspect-square rounded-xl border-2 border-dashed dark:border-muted-foreground",
                                     "cursor-pointer hover:bg-secondary transition-colors"
                                 )}>
                                     <ImageIcon className="size-8 text-muted-foreground" />

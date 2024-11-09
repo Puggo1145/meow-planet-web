@@ -4,7 +4,7 @@ export type Gender = "male" | "female" | "unknown"
 
 export interface Cat {
     name: string // 名字
-    avatarUrl: string | null // 头像
+    avatarUrl: string // 头像
     gender: Gender // 性别
     age?: number// 年龄
     character?: string // 性格

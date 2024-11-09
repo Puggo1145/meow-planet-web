@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button"
 // components
 import { Loader } from "@/components/loader"
+import Image from "next/image"
 // hooks
 import { useImages } from "@/hooks/use-images"
 // icons
@@ -109,7 +110,7 @@ export const UploadCatImagesModal = ({ catId, onUploadSuccess }: UploadCatImages
                                 key={index}
                                 className="relative aspect-square rounded-xl overflow-hidden bg-secondary"
                             >
-                                <img
+                                <Image
                                     src={URL.createObjectURL(image)}
                                     alt={`preview ${index}`}
                                     className="w-full h-full object-cover"

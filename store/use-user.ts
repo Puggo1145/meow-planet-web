@@ -17,6 +17,7 @@ interface UserState {
   updateAvatar: (file: File) => Promise<void>
   updateUserPrefs: (prefs: Partial<Models.Preferences>) => Promise<void>
   resetUserInfo: () => void
+  hasLabel: (label: string) => boolean
 }
 
 export const useUserStore = create<UserState>()((set, get) => ({
@@ -117,5 +118,7 @@ export const useUserStore = create<UserState>()((set, get) => ({
     user: null,
     teams: [],
     status: "unauthenticated",
-  })
+  }),
+
+  hasLabel: (label: string) => get().user?.labels?.includes(label) ?? false
 }))

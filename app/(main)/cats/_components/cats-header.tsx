@@ -7,13 +7,15 @@ import { Button } from "@/components/ui/button"
 import { UploadIcon } from "lucide-react"
 // services
 import { getCatsCount } from "@/services/cats"
+// store
+import { useUserStore } from "@/store/use-user"
 // utils
 import Link from "next/link"
 import { Skeleton } from "@/components/ui/skeleton"
 
 export const CatsHeader = () => {
     const [catsCount, setCatsCount] = useState<number>()
-
+    const isMaintainer = useUserStore(state => state.hasLabel("catMaintainer"))
     useEffect(() => {
         getCatsCount().then(setCatsCount)
     }, [])
@@ -31,15 +33,16 @@ export const CatsHeader = () => {
                     <Skeleton className="w-24 h-4" />
                 }
             </div>
-            <Button
-                asChild
-                className="flex items-center gap-x-2"
-            >
-                <Link href="/cats/upload">
-                    <UploadIcon className="size-4" />
-                    创建猫咪
-                </Link>
-            </Button>
+            {isMaintainer &&
+                <Button
+                    asChild
+                    className="flex items-center gap-x-2"
+                >
+                    <Link href="/cats/upload">
+                        <UploadIcon className="size-4" />
+                        创建猫咪
+                    </Link>
+                </Button>}
         </header>
     )
 }

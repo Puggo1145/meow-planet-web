@@ -16,10 +16,14 @@ import { SparklesIcon } from "lucide-react"
 import { getCatMaintainers } from "@/services/users"
 // utils
 import { toast } from "sonner"
+// store
+import { useUserStore } from "@/store/use-user"
 // types
 import { Maintainer } from "@/services/users"
 
 export const CatsMaintainers = () => {
+  const isMaintainer = useUserStore(state => state.hasLabel("catMaintainer"))
+
   const [maintainers, setMaintainers] = useState<Maintainer[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
@@ -70,12 +74,18 @@ export const CatsMaintainers = () => {
       </section>
       <section className="flex items-center gap-x-2">
         <Button className="flex items-center gap-x-2" disabled>
-          <SparklesIcon className="size-4" />
+          <SparklesIcon className="size-4 cursor-not-allowed" />
           打赏
         </Button>
-        <Button variant="outline" disabled>
-          成为管理员
-        </Button>
+        {
+          !isMaintainer &&
+          <Button 
+            variant="outline" 
+            disabled
+          >
+            成为管理员
+          </Button>
+        }
       </section>
     </section>
   )

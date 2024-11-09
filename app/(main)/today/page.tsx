@@ -1,5 +1,3 @@
-"use client"
-
 // layout
 import {
   MainContainer,
@@ -8,7 +6,6 @@ import {
 // components
 import FeedsHeader from "./_components/feeds/feeds-header"
 import FeedsList from "./_components/feeds/feeds-list"
-import { FeedsUpload } from "./_components/feeds/feeds-upload"
 import TodayRanks from "./_components/today-ranks"
 import NewCats from "./_components/new-cats"
 

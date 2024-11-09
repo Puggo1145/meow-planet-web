@@ -1,9 +1,14 @@
 "use client"
 
 import Image from 'next/image'
-import { HeadingText, HeadingTextTitle, HeadingTextDescription } from '@/components/heading-text'
+// ui
 import { Badge } from '@/components/ui/badge'
+// components
+import { HeadingText, HeadingTextTitle, HeadingTextDescription } from '@/components/heading-text'
+import { InfoSection, InfoSectionContent } from '@/components/info-section'
+// constants
 import { UserRoleEnums } from '@/constants/user-enums'
+// store
 import { useUserStore } from '@/store/use-user'
 
 export const UserBadges = () => {
@@ -31,7 +36,7 @@ export const UserBadges = () => {
   ]
 
   return (
-    <section className='flex gap-x-24'>
+    <InfoSection>
       <HeadingText>
         <HeadingTextTitle>徽章</HeadingTextTitle>
         <HeadingTextDescription className='max-w-xs'>
@@ -39,8 +44,13 @@ export const UserBadges = () => {
         </HeadingTextDescription>
       </HeadingText>
 
-      <div className='flex-1 flex items-center gap-x-4'>
-        {validBadges.map(badge => (
+      <InfoSectionContent className='flex items-center gap-x-4'>
+        {validBadges.length === 0 && (
+          <div className='flex-1 flex flex-col items-center justify-center'>
+            <span className='text-sm text-muted-foreground'>暂无徽章</span>
+          </div>
+        )}
+        {validBadges.length > 0 && validBadges.map(badge => (
           <div 
             key={`${badge.type}-${badge.id}`}
             className='flex flex-col items-center gap-y-2'
@@ -60,7 +70,7 @@ export const UserBadges = () => {
             </Badge>
           </div>
         ))}
-      </div>
-    </section>
+      </InfoSectionContent>
+    </InfoSection>
   )
 }

@@ -13,14 +13,16 @@ import type { Models } from "appwrite"
 
 interface ImageUploaderProps {
     userId: string
+    className?: string
 }
 
-export const ImageUploader = ({ userId }: ImageUploaderProps) => {
+export const ImageUploader = ({ userId, className }: ImageUploaderProps) => {
     const [uploader, setUploader] = useState<Models.User<Models.Preferences> | null>(null)
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         const fetchUploader = async () => {
+            setIsLoading(true)
             try {
                 const user = await getUserById(userId)
                 setUploader(user)
@@ -36,7 +38,7 @@ export const ImageUploader = ({ userId }: ImageUploaderProps) => {
 
     if (isLoading) {
         return (
-            <div className="flex items-center gap-2">
+            <div className="z-50 absolute flex items-center gap-2">
                 <Skeleton className="size-6 rounded-full" />
                 <Skeleton className="h-4 w-20" />
             </div>
@@ -49,7 +51,8 @@ export const ImageUploader = ({ userId }: ImageUploaderProps) => {
         <div className={cn(
             "z-50 absolute bottom-3 right-3",
             "px-3 py-2 rounded-full",
-            "bg-black/50 backdrop-blur-sm"
+            "bg-black/50 backdrop-blur-sm",
+            className
         )}>
             <div className="flex items-center gap-2">
                 <Avatar className="size-6">

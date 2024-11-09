@@ -22,13 +22,12 @@ import {
     ChevronsUpDown,
     LogOut,
     User,
-    UserPlus
+    // UserPlus
 } from "lucide-react"
 // utils
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { toast } from "sonner"
 // store
 import { useUserStore } from "@/store/use-user"
 import { useState } from "react"
@@ -82,7 +81,7 @@ const UserPanelContent = () => {
     const itemStyle = "h-12 cursor-pointer"
 
     return (
-        <DropdownMenuContent className="w-64 rounded-xl">
+        <DropdownMenuContent className="w-64 rounded-xl dark:!border-gray-700">
             <DropdownMenuLabel>我的账户</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
@@ -92,10 +91,10 @@ const UserPanelContent = () => {
                         <span>个人中心</span>
                     </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className={itemStyle}>
+                {/* <DropdownMenuItem className={itemStyle}>
                     <UserPlus />
                     <span>邀请用户</span>
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <SignOutUserItem />

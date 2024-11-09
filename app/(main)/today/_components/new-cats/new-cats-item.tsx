@@ -1,30 +1,32 @@
 import Image from "next/image";
 import Link from "next/link";
-// types
-import type { StaticImageData } from "next/image";
 
 export interface INewCatsItemProps {
-  id: number;
-  image: StaticImageData;
+  id: string;
+  image: string;
   name: string;
 }
 
-export const NewCatsItem: React.FC<INewCatsItemProps> = ({
+export const NewCatsItem = ({
+  id,
   image,
   name,
-}) => {
+}: INewCatsItemProps) => {
   return (
-    <li className="w-36">
+    <li className="w-36 shrink-0">
       <Link 
-        href="/"
+        href={`/cats/${id}`}
         className="flex flex-col gap-y-1 cursor-pointer"
       >
-        <Image
-          src={image}
-          className="h-48 object-cover rounded-xl
-            cursor-pointer transition-all duration-150 hover:brightness-75"
-          alt="new cat"
-        />
+        <div className="relative h-48 w-full">
+          <Image
+            src={image}
+            fill
+            className="object-cover rounded-xl
+              cursor-pointer transition-all duration-150 hover:brightness-75"
+            alt={`${name} cat`}
+          />
+        </div>
         <p className="ml-1 font-bold">
           {name}
         </p>

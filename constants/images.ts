@@ -1,4 +1,5 @@
 import landingLogo from "@/assets/images/landing-logo.png"
+import inviteCode from "@/assets/images/invite-code.png"
 // mock images
 import mockCat1 from '@/assets/images/mock-cat-1.jpg';
 import mockCat2 from '@/assets/images/mock-cat-2.jpg';
@@ -16,6 +17,7 @@ import notFoundStatus from '@/assets/images/status/404.png'
 
 const images = {
     landingLogo,
+    inviteCode,
     mockCat1,
     mockCat2,
     mockCat3,

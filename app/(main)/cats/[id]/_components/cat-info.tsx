@@ -10,8 +10,6 @@ import {
     AlertCircleIcon,
     CalendarIcon,
     PillIcon,
-    ThumbsUpIcon,
-    HeartIcon
 } from "lucide-react"
 import type { CatDocument } from "@/types/cats"
 

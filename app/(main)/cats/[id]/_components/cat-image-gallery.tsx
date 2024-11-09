@@ -92,7 +92,6 @@ const CatImageDisplay = ({
     // 当 selectedImageIndex 改变时，手动切换幻灯片
     useEffect(() => {
         if (swiperRef.current && swiperRef.current.activeIndex !== selectedImageIndex) {
-            console.log("selectedImageIndex", selectedImageIndex)
             swiperRef.current.slideTo(selectedImageIndex)
         }
     }, [selectedImageIndex])
