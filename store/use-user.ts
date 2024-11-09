@@ -19,7 +19,7 @@ interface UserState {
   resetUserInfo: () => void
 }
 
-export const useUserStore = create<UserState>((set, get) => ({
+export const useUserStore = create<UserState>()((set, get) => ({
   user: null,
   teams: [],
   status: "loading",
@@ -37,7 +37,7 @@ export const useUserStore = create<UserState>((set, get) => ({
         teams: teamsResponse.teams,
         status: "authenticated"
       })
-    } catch (error) {
+    } catch {
       get().resetUserInfo()
     }
   },
@@ -53,7 +53,7 @@ export const useUserStore = create<UserState>((set, get) => ({
         user: null,
         status: "unauthenticated"
       })
-    } catch (error) {
+    } catch {
       get().resetUserInfo()
     }
   },

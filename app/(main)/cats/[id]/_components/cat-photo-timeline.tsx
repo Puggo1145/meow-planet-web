@@ -3,7 +3,6 @@ import Image from "next/image"
 import { format } from "date-fns"
 // ui
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
 // components
 import { ListEnd } from "@/components/list-end"
 // hooks
@@ -15,6 +14,7 @@ import { toast } from "sonner"
 import { getCatImageByTime } from "@/services/cats"
 // types
 import type { CatImageDocument } from "@/types/cats"
+import { CatPhotoPreview } from "./cat-photo-preview"
 
 interface CatPhotoTimelineProps {
   catId: string
@@ -36,7 +36,7 @@ export const CatPhotoTimeline = ({ catId }: CatPhotoTimelineProps) => {
       setIsLoading(true)
       const { images: newImages, hasMore: more } = await getCatImageByTime(catId, {
         cursor,
-        limit: 20
+        limit: 8
       })
 
       if (cursor) {
@@ -80,7 +80,7 @@ export const CatPhotoTimeline = ({ catId }: CatPhotoTimelineProps) => {
 
   return (
     <div className="col-span-3 mt-8">
-      <h2 className="text-xl font-semibold mb-6">时间机</h2>
+      <h2 className="text-xl font-semibold mb-6">时光机</h2>
       <ScrollArea className="w-full pr-4">
         <div className="space-y-8">
           {Object.entries(groupedImages).map(([month, monthImages]) => (
@@ -120,23 +120,10 @@ export const CatPhotoTimeline = ({ catId }: CatPhotoTimelineProps) => {
         />
       </ScrollArea>
 
-      {/* Full screen preview */}
-      <Dialog
-        open={!!selectedImage}
-        onOpenChange={() => setSelectedImage(null)}
-      >
-        <DialogContent className="size-1/2 p-0 overflow-hidden">
-          {selectedImage && (
-            <Image
-              src={selectedImage.url}
-              alt={`Cat photo ${selectedImage.$id}`}
-              width={1200}
-              height={800}
-              className="w-full h-full object-contain"
-            />
-          )}
-        </DialogContent>
-      </Dialog>
+      <CatPhotoPreview 
+        image={selectedImage}
+        onClose={() => setSelectedImage(null)}
+      />
     </div>
   )
 } 

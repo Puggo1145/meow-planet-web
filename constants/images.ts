@@ -12,6 +12,7 @@ import catMaintainerBadge from '@/assets/images/badges/cat-maintainer-badge.png'
 // status
 import emptyStatus from '@/assets/images/status/empty.png'
 import wentWrongStatus from '@/assets/images/status/went-wrong.png'
+import notFoundStatus from '@/assets/images/status/404.png'
 
 const images = {
     landingLogo,
@@ -29,6 +30,7 @@ const images = {
     status: {
         emptyStatus,
         wentWrongStatus,
+        notFoundStatus,
     },
 };
 
