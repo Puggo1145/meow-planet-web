@@ -45,14 +45,14 @@ export const MobileNav = () => {
   const pathname = usePathname()
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-t md:hidden">
-      <ul className="flex items-center justify-around">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-t dark:border-border md:hidden">
+      <ul className="flex items-center justify-around pb-3">
         {navItems.map((item, index) => (
           <li key={index} className="flex-1">
             <Link
               href={item.href}
               className={cn(
-                "flex flex-col items-center gap-y-1 py-3",
+                "flex flex-col items-center gap-y-1 py-4",
                 "text-muted-foreground hover:text-foreground transition-colors",
               )}
             >

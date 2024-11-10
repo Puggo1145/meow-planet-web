@@ -92,7 +92,7 @@ export const CatPhotoTimeline = ({ catId }: CatPhotoTimelineProps) => {
                     key={image.$id}
                     className={cn(
                       "aspect-square rounded-xl overflow-hidden",
-                      "cursor-pointer hover:opacity-90 transition-opacity"
+                      "cursor-pointer hover:opacity-90 transition-opacity bg-secondary"
                     )}
                     onClick={() => setSelectedImage(image)}
                   >

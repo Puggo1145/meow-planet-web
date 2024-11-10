@@ -21,11 +21,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
             // 2. 处理根路由重定向
             if (pathname === "/") {
-                if (status === "unauthenticated") {
-                    router.replace("/sign-in")
-                } else {
-                    router.replace("/today")
-                }
+                router.replace("/today")
                 return
             }
 
@@ -39,7 +35,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
             const routeConfig = findMatchingRouteConfig(pathname, routeGuardConfig)
             if (routeConfig) {
                 const hasAccess = checkUserAccess(user, teams, routeConfig)
-                
+
                 if (!hasAccess) {
                     // 未登录用户重定向到登录页
                     if (status === "unauthenticated") {

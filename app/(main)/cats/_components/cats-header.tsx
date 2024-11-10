@@ -21,7 +21,7 @@ export const CatsHeader = () => {
     }, [])
 
     return (
-        <header className="w-full flex items-center justify-between gap-x-6 py-4">
+        <header className="px-4 w-full flex items-center justify-between gap-x-6 py-6">
             <div className="flex flex-col gap-y-1">
                 <h1 className="text-2xl font-bold">图鉴</h1>
                 {catsCount !== undefined

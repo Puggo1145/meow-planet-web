@@ -14,7 +14,7 @@ const AdoptionPage = () => {
             "严格的领养人资质审核，确保猫咪找到负责任的主人",
           ]}
           imagePath={images.auth.authIllustration1.src}
-          className="bg-[url('/images/adoption-pattern.png')] bg-repeat bg-opacity-5"
+          className="bg-repeat bg-opacity-5"
         />
         <div className="h-8" />
       </ScrollArea>

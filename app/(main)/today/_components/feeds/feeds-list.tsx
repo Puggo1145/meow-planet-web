@@ -100,9 +100,9 @@ const FeedsList = () => {
     if (initialLoading) {
         return (
             <ScrollArea className="mt-4 w-full flex-1">
-                <ul className="w-full grid grid-cols-3 gap-4">
+                <ul className="px-4 w-full grid grid-cols-2 lg:grid-cols-3 gap-4">
                     {Array.from({ length: 6 }).map((_, index) => (
-                        <Skeleton key={index} className="w-full h-[320px]" />
+                        <Skeleton key={index} className="w-full h-64 md:h-72 lg:h-80" />
                     ))}
                 </ul>
             </ScrollArea>
@@ -120,7 +120,7 @@ const FeedsList = () => {
 
     return (
         <ScrollArea className="mt-4 w-full flex-1">
-            <ul className="w-full grid grid-cols-2 lg:grid-cols-3 gap-4">
+            <ul className="px-4 w-full grid grid-cols-2 lg:grid-cols-3 gap-4">
                 {cats.map((cat) => (
                     <Link href={`/cats/${cat.$id}`} key={cat.$id}>
                         <CatCard>

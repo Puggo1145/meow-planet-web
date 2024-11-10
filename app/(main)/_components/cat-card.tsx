@@ -5,7 +5,7 @@ import { HeartIcon, ImageOffIcon, ThumbsUpIcon } from 'lucide-react'
 
 export const CatCard = ({ children }: { children: React.ReactNode }) => {
     return (
-        <li className='max-w-52 w-full h-80 flex flex-col rounded-2xl overflow-hidden bg-background
+        <li className='max-w-52 w-full h-64 md:h-72 lg:h-80 flex flex-col rounded-2xl overflow-hidden bg-background
         border-2 border-secondary cursor-pointer hover:bg-secondary hover:scale-[1.02] duration-300'>
             {children}
         </li>
@@ -43,7 +43,7 @@ export const CatCardInfo = ({ children }: { children: React.ReactNode }) => {
 
 export const CatCardInfoName = ({ children }: { children: React.ReactNode }) => {
     return (
-        <span className='text-sm text-foreground font-bold'>
+        <span className='text-sm text-foreground font-bold line-clamp-1'>
             {children}
         </span>
     )
@@ -51,7 +51,7 @@ export const CatCardInfoName = ({ children }: { children: React.ReactNode }) => 
 
 export const CatCardInfoNumbers = ({ children }: { children: React.ReactNode }) => {
     return (
-        <div className='text-sm text-foreground font-bold flex items-center gap-x-3'>
+        <div className='text-sm text-foreground font-bold flex items-center gap-x-2'>
             {children}
         </div>
     )

@@ -152,7 +152,7 @@ const ImagePreviewGallery = ({
                     <div
                         key={image.$id}
                         className={cn(
-                            "shrink-0 overflow-hidden cursor-pointer size-24 rounded-lg hover:opacity-80",
+                            "shrink-0 overflow-hidden cursor-pointer size-24 bg-secondary rounded-lg hover:opacity-80",
                             selectedImageIndex === index && "border-2 border-primary"
                         )}
                         onClick={() => setSelectedImageIndex(index)}

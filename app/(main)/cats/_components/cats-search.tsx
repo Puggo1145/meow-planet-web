@@ -30,7 +30,7 @@ export const CatsSearch = ({ onSearch, isSearching }: CatsSearchProps) => {
   }
 
   return (
-    <div className="w-full flex items-center gap-x-4">
+    <div className="w-full flex items-center gap-x-4 px-4">
       {/* 搜索框 */}
       <div className="flex-1 relative">
         <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
@@ -39,7 +39,7 @@ export const CatsSearch = ({ onSearch, isSearching }: CatsSearchProps) => {
           onChange={(e) => setKeyword(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="搜索猫猫..." 
-          className="pl-10 h-[60px] text-base"
+          className="pl-10 h-12 text-base rounded-full"
         />
         {keyword && (
           <Button
@@ -55,7 +55,7 @@ export const CatsSearch = ({ onSearch, isSearching }: CatsSearchProps) => {
 
       {/* 搜索按钮 */}
       <Button 
-        className="flex items-center gap-x-2 size-[60px]"
+        className="flex items-center gap-x-2 size-12 rounded-full"
         onClick={handleSearch}
         disabled={isSearching || !keyword}
       >

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import Link from "next/link"
+// import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -91,12 +91,12 @@ const SignInForm = () => {
                         </FormItem>
                     )}
                 />
-                <Link
+                {/* <Link
                     href="/auth/reset-pwd"
                     className="self-end text-sm text-muted-foreground/80 hover:text-muted-foreground"
                 >
                     忘记密码?
-                </Link>
+                </Link> */}
                 <Button type="submit" className="mt-4" disabled={isSubmitting}>
                     {isSubmitting ? 
                         <Loader size="sm" color="white" />

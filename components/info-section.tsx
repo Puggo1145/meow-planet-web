@@ -3,7 +3,7 @@ import type { ComponentProps } from 'react'
 
 export const InfoSection = ({ children, className }: ComponentProps<'section'>) => {
     return (
-        <section className={cn('flex flex-col lg:flex-row gap-x-24', className)}>
+        <section className={cn('flex flex-col gap-y-4 lg:flex-row gap-x-24', className)}>
             {children}
         </section>
     )

@@ -22,7 +22,7 @@ const FeedsHeader = () => {
     }
 
     return (
-        <div className="flex justify-between items-center py-6">
+        <div className="px-4 flex justify-between items-center py-6">
             <h1 className="text-2xl font-black">今日</h1>
             <div className="flex">
                 {FeedsNavs.map((nav, index) => (
@@ -31,7 +31,7 @@ const FeedsHeader = () => {
                         variant="ghost"
                         className={cn(
                             "text-sm text-muted-foreground hover:text-primary",
-                            currentFeed === nav && "text-primary font-bold"
+                            currentFeed === nav && "text-primary font-bold bg-secondary"
                         )}
                         onClick={() => handleFeedChange(nav as FeedType)}
                     >

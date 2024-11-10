@@ -10,8 +10,12 @@ import {
     AlertCircleIcon,
     CalendarIcon,
     PillIcon,
+    PencilIcon,
 } from "lucide-react"
 import type { CatDocument } from "@/types/cats"
+import { useUserStore } from "@/store/use-user"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 const genderMap = {
     "male": {
@@ -61,6 +65,8 @@ export const CatInfo = ({
     createdBy,
     $createdAt
 }: CatInfoProps) => {
+    const isMaintainer = useUserStore(state => state.hasLabel("catMaintainer"))
+
     return (
         <div className="space-y-8">
             {/* 基本信息 */}
@@ -83,7 +89,20 @@ export const CatInfo = ({
                             </div>
                         </div>
                     </div>
-                    <ShareCat />
+                    <div className="flex items-center gap-x-2">
+                        <ShareCat />
+                        {isMaintainer && (
+                            <Button
+                                variant="outline"
+                                size="icon"
+                                asChild
+                            >
+                                <Link href={`/cats/${$id}/edit`}>
+                                    <PencilIcon className="size-4" />
+                                </Link>
+                            </Button>
+                        )}
+                    </div>
                 </div>
 
                 <CatFns

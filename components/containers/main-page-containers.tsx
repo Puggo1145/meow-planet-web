@@ -5,7 +5,7 @@ import type { ComponentProps } from "react"
 export const MainContainer = ({ children, className }: ComponentProps<'div'>) => {
     return (
         <div className={cn(
-            "flex-1 h-screen p-4 pb-0 flex flex-col",
+            "flex-1 h-screen pb-0 flex flex-col",
             "pb-16 lg:pb-0",
             className
         )}>

@@ -2,6 +2,7 @@
 
 // ui
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 // icons
 import { ArrowLeft } from "lucide-react"
 // utils
@@ -13,18 +14,20 @@ interface PageHeaderProps extends ComponentProps<"header"> {
     title: string
     useBackButton?: boolean
     backHref?: string
+    className?: string
 }
 
 export const PageHeader = ({
     title,
     useBackButton = false,
     backHref,
+    className,
     ...props
 }: PageHeaderProps) => {
     const router = useRouter()
     return (
         <header
-            className="flex items-center gap-x-4 py-6"
+            className={cn("flex items-center gap-x-4 py-6 pl-4", className)}
             {...props}
         >
             {useBackButton && (

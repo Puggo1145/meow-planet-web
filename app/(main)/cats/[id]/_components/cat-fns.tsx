@@ -15,8 +15,8 @@ export const CatFns = ({
 }: CatFnsProps) => {
     return (
         <div className={cn(
-            "fixed bottom-20 right-4 md:bottom-16 md:right-8 md:bottom-16 md:right-16",
-            "flex gap-x-4 p-4 rounded-full bg-background/80 backdrop-blur-sm",
+            "fixed bottom-24 right-4 md:bottom-16 md:right-8",
+            "flex gap-x-4 p-2 md:p-4 rounded-full bg-background/80 backdrop-blur-sm",
             "border border-border",
             "z-50"
         )}>

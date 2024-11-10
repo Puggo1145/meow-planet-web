@@ -325,3 +325,17 @@ export const getNewCats = async (limit: number = 5): Promise<CatDocument[]> => {
     throw new Error("获取新猫咪失败: " + (error as Error).message);
   }
 };
+
+export const updateCat = async (catId: string, data: Partial<CreateCatData>) => {
+    try {
+        const response = await databases.updateDocument(
+            DATABASES_IDS.MAIN,
+            DATABASES_IDS.COLLECTIONS.CATS,
+            catId,
+            data
+        )
+        return response
+    } catch (error) {
+        throw new Error("更新猫咪信息失败: " + (error as Error).message)
+    }
+}
