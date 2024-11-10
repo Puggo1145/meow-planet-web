@@ -1,4 +1,5 @@
 import { Models } from 'appwrite'
+import { pathToRegexp } from 'path-to-regexp'
 
 export type RouteGuardConfig = {
   // 需要登录才能访问
@@ -13,7 +14,7 @@ export type RouteGuardConfig = {
 }
 
 export type RouteGuardMap = {
-  [key: string]: RouteGuardConfig
+  [pattern: string]: RouteGuardConfig
 }
 
 export const checkUserAccess = (
@@ -48,4 +49,26 @@ export const checkUserAccess = (
   }
 
   return true
+}
+
+// 新增: 根据当前路径找到匹配的路由配置
+export const findMatchingRouteConfig = (
+  pathname: string,
+  routeGuardConfig: RouteGuardMap
+): RouteGuardConfig | undefined => {
+  // 1. 先尝试精确匹配
+  if (routeGuardConfig[pathname]) {
+    return routeGuardConfig[pathname]
+  }
+
+  // 2. 遍历所有路由模式进行通配符匹配
+  for (const pattern of Object.keys(routeGuardConfig)) {
+    // 修复: 直接使用 pathToRegexp 创建正则表达式
+    const regexp = pathToRegexp(pattern).regexp
+    if (regexp.test(pathname)) {
+      return routeGuardConfig[pattern]
+    }
+  }
+
+  return undefined
 } 

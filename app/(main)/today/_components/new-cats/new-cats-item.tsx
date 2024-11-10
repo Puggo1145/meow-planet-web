@@ -22,6 +22,7 @@ export const NewCatsItem = ({
           <Image
             src={image}
             fill
+            sizes="100"
             className="object-cover rounded-xl
               cursor-pointer transition-all duration-150 hover:brightness-75"
             alt={`${name} cat`}

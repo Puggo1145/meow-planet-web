@@ -1,13 +1,25 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-// store
+import { useRouter } from "next/navigation"
 import { useFeedsStore, FeedsNavs, FeedsNavsEnums, FeedType } from "@/store/use-feeds-store"
-// utils
+import { useUserStore } from "@/store/use-user"
 import { cn } from "@/lib/utils"
+import { toast } from "sonner"
 
 const FeedsHeader = () => {
+    const router = useRouter()
     const { currentFeed, setCurrentFeed } = useFeedsStore()
+    const { status } = useUserStore()
+
+    const handleFeedChange = (feed: FeedType) => {
+        if (feed === "loved" && status === "unauthenticated") {
+            toast.error("请先登录")
+            router.push("/sign-in")
+            return
+        }
+        setCurrentFeed(feed)
+    }
 
     return (
         <div className="flex justify-between items-center py-6">
@@ -21,7 +33,7 @@ const FeedsHeader = () => {
                             "text-sm text-muted-foreground hover:text-primary",
                             currentFeed === nav && "text-primary font-bold"
                         )}
-                        onClick={() => setCurrentFeed(nav as FeedType)}
+                        onClick={() => handleFeedChange(nav as FeedType)}
                     >
                         {FeedsNavsEnums[nav]}
                     </Button>

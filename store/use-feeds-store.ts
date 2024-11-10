@@ -19,5 +19,7 @@ export const FeedsNavsEnums: Record<string, string> = {
 
 export const useFeedsStore = create<FeedsState>()((set) => ({
   currentFeed: "current",
-  setCurrentFeed: (feed) => set({ currentFeed: feed }),
+  setCurrentFeed: (feed) => {
+    set({ currentFeed: feed })
+  },
 })) 

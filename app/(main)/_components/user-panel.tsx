@@ -42,13 +42,22 @@ export const UserPanel = () => {
 }
 
 const UserPanelTrigger = () => {
-    const user = useUserStore(state => state.user)
+    const { user, status } = useUserStore(state => state)
     const pathname = usePathname();
 
-    if (!user) return (
+    if (status === "loading") return (
         <div className="flex items-center gap-x-4 cursor-pointer hover:bg-secondary rounded-2xl py-4 px-2">
             <Loader size="sm" />
         </div>
+    )
+
+    if (status === "unauthenticated") return (
+        <Link href="/sign-in">
+            <div className="flex items-center gap-x-4 cursor-pointer hover:bg-secondary rounded-2xl py-4 px-2">
+                <User />
+                <span className="text-sm text-secondary-foreground">登陆后发现更多猫猫</span>
+            </div>
+        </Link>
     )
 
     return (

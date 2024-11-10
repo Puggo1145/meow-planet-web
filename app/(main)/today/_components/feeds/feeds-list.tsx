@@ -26,6 +26,7 @@ import { ListEnd } from "@/components/list-end"
 import { EmptyStatus } from "@/components/status/empty-status"
 // services
 import { getRecentCats } from "@/services/cats"
+import { toast } from "sonner"
 
 interface Cat {
   $id: string;
@@ -75,7 +76,7 @@ const FeedsList = () => {
                 setLastId(response.lastId);
             }
         } catch (error) {
-            console.error(error);
+            toast.error((error as Error).message);
         } finally {
             setLoading(false);
             setInitialLoading(false);

@@ -3,7 +3,7 @@
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect } from "react"
 import { useUserStore } from "@/store/use-user"
-import { checkUserAccess } from "@/lib/route-guard"
+import { checkUserAccess, findMatchingRouteConfig } from "@/lib/route-guard"
 import { routeGuardConfig } from "@/config/routes"
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
@@ -36,7 +36,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
             }
 
             // 4. 检查当前路由的访问权限
-            const routeConfig = routeGuardConfig[pathname]
+            const routeConfig = findMatchingRouteConfig(pathname, routeGuardConfig)
             if (routeConfig) {
                 const hasAccess = checkUserAccess(user, teams, routeConfig)
                 

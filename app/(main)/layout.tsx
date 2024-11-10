@@ -2,6 +2,7 @@ import { LeftContainer } from "@/components/containers/main-page-containers"
 import Logo from "@/components/logo"
 import { UserPanel } from "./_components/user-panel"
 import Navs from "./_components/navs"
+import { MobileNav } from "./_components/mobile-nav"
 // types
 import type { ComponentProps } from "react"
 
@@ -15,6 +16,7 @@ const MainLayout = ({ children }: ComponentProps<'div'>) => {
           <Logo withName />
         </section>
       </LeftContainer>
+      <MobileNav />
       {children}
     </main>
   )
