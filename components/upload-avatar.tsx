@@ -42,8 +42,8 @@ export const UploadAvatar = ({ size = "sm" }: UploadAvatarProps) => {
             setIsUploading(true)
             await updateAvatar(file)
             toast.success('头像更新成功')
-        } catch (error: any) {
-            toast.error('头像更新失败: ' + error.message)
+        } catch (error) {
+            toast.error('头像更新失败: ' + (error as Error).message)
         } finally {
             setIsUploading(false)
         }
