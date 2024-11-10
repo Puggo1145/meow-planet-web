@@ -38,7 +38,7 @@ export const ImageUploader = ({ userId, className }: ImageUploaderProps) => {
 
     if (isLoading) {
         return (
-            <div className="z-50 absolute flex items-center gap-2">
+            <div className="z-50 absolute bottom-3 right-3 flex items-center gap-2">
                 <Skeleton className="size-6 rounded-full" />
                 <Skeleton className="h-4 w-20" />
             </div>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 // ui
 import { Dialog, DialogTitle, DialogContent } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
@@ -21,13 +21,17 @@ interface CatPhotoPreviewProps {
 export const CatPhotoPreview = ({ image, onClose }: CatPhotoPreviewProps) => {
     const [isLoading, setIsLoading] = useState(true)
 
+    useEffect(() => {
+        setIsLoading(true)
+    }, [image])
+
     return (
         <Dialog
             open={!!image}
             onOpenChange={onClose}
         >
             <DialogTitle></DialogTitle>
-            <DialogContent className="max-w-lg min-h-64 p-0 overflow-hidden">
+            <DialogContent className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg min-h-64 rounded-xl border-none p-0 overflow-hidden">
                 {isLoading &&
                     <div className="z-50 absolute inset-0 flex items-center justify-center">
                         <Loader color="muted" />
@@ -52,7 +56,7 @@ export const CatPhotoPreview = ({ image, onClose }: CatPhotoPreviewProps) => {
                             width={1200}
                             height={800}
                             onLoad={() => setIsLoading(false)}
-                            className="w-full object-contain"
+                            className="size-full object-cover"
                         />
                     )}
                     {/* Uploader */}

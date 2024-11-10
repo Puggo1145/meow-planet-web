@@ -68,7 +68,7 @@ const CatsPage = () => {
         <div className="flex-1 overflow-hidden flex flex-col gap-y-4">
             <CatsHeader />
             <CatsSearch onSearch={handleSearch} isSearching={isLoading} />
-            <ScrollArea className="px-4 flex-1">
+            <ScrollArea className="w-full px-4 flex-1 overflow-x-hidden">
                 <CatsMaintainers />
                 {!isLoading && <CatsList cats={cats} />}
                 <ListEnd isLoading={isLoading} hasMore={hasMore} />
