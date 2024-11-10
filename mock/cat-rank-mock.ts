@@ -1,6 +1,4 @@
-import type { ITodayRanksItemProps } from "@/app/(main)/today/_components/today-ranks/today-ranks-item"
-
-export const todayRanksMock: ITodayRanksItemProps[] = [
+export const todayRanksMock = [
     {
         id: 1,
         catImage: "",
